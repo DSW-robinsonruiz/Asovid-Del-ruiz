@@ -1,0 +1,8 @@
+{
+  "General": {
+    "Bienvenida": "<h1>Bienvenido al Gestor de Documentos</h1><p>Este es tu primer documento almacenado en GitHub.</p><p>Puedes editar este contenido, crear nuevas categorías y documentos, y guardarlos directamente en tu repositorio.</p>"
+  },
+  "Proyectos": {
+    "Notas de Diseño": "<h2>Notas de Diseño</h2><ul><li>Minimalista</li><li>Modo Oscuro</li><li>Sin Frameworks</li></ul>"
+  }
+}
