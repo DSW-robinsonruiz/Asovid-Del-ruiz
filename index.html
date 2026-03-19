@@ -1488,8 +1488,8 @@
             currentCategory = catId;
             currentDoc = docId;
             const docData = data[catId][docId];
-            document.getElementById("placeholder").classList.add("hidden");
-            document.getElementById("editor-container").classList.add("show");
+            document.getElementById("placeholder").style.display = "none";
+            document.getElementById("editor-container").style.display = "flex";
             document.getElementById("toolbar").style.display = "flex";
             document.getElementById("editor").innerHTML = docData.content || "";
             render();
@@ -1497,8 +1497,8 @@
 
         function closeEditor() {
             currentDoc = null;
-            document.getElementById("placeholder").classList.remove("hidden");
-            document.getElementById("editor-container").classList.remove("show");
+            document.getElementById("placeholder").style.display = "flex";
+            document.getElementById("editor-container").style.display = "none";
             document.getElementById("toolbar").style.display = "none";
         }
 
