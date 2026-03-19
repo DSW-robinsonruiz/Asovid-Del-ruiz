@@ -937,12 +937,12 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* HOME MOBILE - CARDS GRANDES */
+            /* HOME MOBILE - EXTREME SPACING (V2.1) */
             #homeView {
-                gap: 16px;
-                padding: 20px 14px 30px 14px;
+                gap: 24px;
+                padding: 30px 20px 50px 20px;
                 justify-content: flex-start;
-                padding-top: 20px;
+                padding-top: 40px;
                 align-content: flex-start;
             }
 
@@ -976,15 +976,16 @@
             }
 
             .card {
-                padding: 24px 18px;
-                border-radius: 18px;
+                padding: 32px 24px;
+                border-radius: 24px;
                 animation-delay: 0s !important;
-                min-height: 110px;
+                min-height: 140px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 cursor: pointer;
                 transition: all 0.3s ease;
+                margin-bottom: 10px;
             }
 
             .card:active {
@@ -1079,16 +1080,17 @@
             }
 
             .category-header {
-                padding: 16px 16px;
-                font-size: 14px;
-                min-height: 52px;
+                padding: 20px 20px;
+                font-size: 16px;
+                min-height: 64px;
                 display: flex;
                 align-items: center;
                 cursor: pointer;
                 transition: all 0.2s ease;
-                font-weight: 700;
-                background: rgba(56, 189, 248, 0.1);
-                border-left: 3px solid transparent;
+                font-weight: 800;
+                background: rgba(56, 189, 248, 0.15);
+                border-left: 4px solid transparent;
+                margin-bottom: 2px;
             }
 
             .category-header:active {
@@ -1113,16 +1115,17 @@
             }
 
             .doc {
-                padding: 14px 16px;
-                font-size: 13px;
-                min-height: 50px;
+                padding: 18px 20px;
+                font-size: 14px;
+                min-height: 60px;
                 display: flex;
                 align-items: center;
                 cursor: pointer;
                 transition: all 0.2s ease;
-                border-radius: 10px;
-                background: rgba(255, 255, 255, 0.05);
-                border-left: 3px solid transparent;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.08);
+                border-left: 4px solid transparent;
+                margin: 4px 0;
             }
 
             .doc:active {
