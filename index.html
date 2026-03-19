@@ -1,1153 +1,1152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASOVID DEL RUIZ</title>
-
-<style>
-:root{
-    --bg:#020305;
-    --sidebar:#020305;
-    --hover:#7c78782c;
-    --accent:#00ff40;
-    --text:#e5e7eb;
-    --muted:#005eff;
-    --danger:#ef4444;
-    --success:#22c55e;
-    --border:#ff0000;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-    font-family:Segoe UI, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-}
-
-/* ================= HOME ================= */
-
-#home{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:40px;
-}
-
-.card{
-    background:var(--sidebar);
-    padding:40px;
-    border-radius:12px;
-    cursor:pointer;
-    width:260px;
-    text-align:center;
-    transition:.3s;
-    border:1px solid var(--border);
-}
-
-.card:hover{
-    transform:translateY(-5px);
-    border-color:var(--accent);
-}
-
-/* ================= GESTOR ================= */
-
-#gestor-wrapper{
-    display:none;
-    height:100vh;
-}
-
-#gestor{
-    display:flex;
-    height:100%;
-}
-
-#sidebar{
-    width:300px;
-    background:var(--sidebar);
-    border-right:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
-}
-
-.sidebar-header{
-    padding:20px;
-    border-bottom:1px solid var(--border);
-}
-
-.sidebar-header h2{
-    margin-bottom:15px;
-    font-size:18px;
-}
-
-.btn-group{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-button{
-    border:none;
-    border-radius:6px;
-    padding:8px 10px;
-    cursor:pointer;
-    font-size:13px;
-    transition:0.2s;
-}
-
-button:hover{
-    opacity:0.9;
-}
-
-.primary{background:var(--accent);color:white;}
-.success{background:var(--success);color:white;}
-.danger{background:var(--danger);color:white;}
-
-#category-list{
-    flex:1;
-    overflow-y:auto;
-    padding:10px 0;
-}
-
-.category-header{
-    padding:10px 20px;
-    cursor:pointer;
-    font-weight:bold;
-    color:var(--muted);
-    user-select:none;
-}
-
-.category-header:hover{
-    background:var(--hover);
-    color:var(--text);
-}
-
-.category-header.active{
-    color:var(--accent);
-}
-
-.docs{
-    display:none;
-    padding-left:20px;
-}
-
-.docs.open{display:block}
-
-.doc{
-    padding:8px 20px;
-    cursor:pointer;
-    font-size:14px;
-    color:var(--muted);
-    user-select:none;
-}
-
-.doc:hover{
-    background:var(--hover);
-    color:var(--text);
-}
-
-.doc.active{
-    background:var(--hover);
-    color:var(--accent);
-}
-
-#main{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-}
-
-#toolbar{
-    display:none;
-    padding:10px 15px;
-    background:var(--sidebar);
-    border-bottom:1px solid var(--border);
-    flex-wrap:wrap;
-    gap:5px;
-    align-items:center;
-}
-
-#toolbar select,
-#toolbar input{
-    background:var(--bg);
-    color:white;
-    border:1px solid var(--border);
-    padding:4px;
-    border-radius:4px;
-}
-
-#editor-container{
-    flex:1;
-    padding:40px 20px;
-    display:none;
-    overflow-y:auto;
-    background:#0a0a0a;
-}
-
-#editor{
-    background:white;
-    color:black;
-    padding:80px 90px;
-    border-radius:2px;
-    min-height:1056px;
-    width:100%;
-    max-width:816px;
-    margin:0 auto 40px auto;
-    outline:none;
-    line-height:1.6;
-    font-size:16px;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
-}
-
-.placeholder{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex:1;
-    color:var(--muted);
-    font-style:italic;
-}
-
-/* ================= PLANTILLA ================= */
-
-#plantilla-wrapper{
-    display:none;
-    height:100vh;
-}
-
-#plantilla{
-    display:flex;
-    height:100%;
-}
-
-#plantilla-preview{
-    flex:1;
-    padding:40px;
-    background:#1a1a1a;
-    overflow-y:auto;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.doc-preview{
-    width:816px;
-    min-height:1056px;
-    background:white;
-    color:black;
-    padding:72px;
-    margin:20px auto;
-    font-family:'Times New Roman', serif;
-    font-size:14px;
-    line-height:1.6;
-    text-align:justify;
-    box-shadow:0 0 25px rgba(0,0,0,0.6);
-    box-sizing:border-box;
-    page-break-after:always;
-    display:flex;
-    flex-direction:column;
-}
-
-.doc-preview p{
-    margin:0 0 12px 0;
-    text-align:justify;
-}
-
-.doc-preview h2{
-    text-align:center;
-    margin:0 0 20px 0;
-    font-size:15px;
-    font-weight:bold;
-}
-
-.doc-preview strong{
-    font-weight:bold;
-}
-
-.firmas-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: auto; /* Empuja las firmas al final de la página */
-    padding-top: 60px;
-    width: 100%;
-}
-
-.firma-box {
-    width: 45%;
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.firma-linea {
-    border-top: 1px solid black;
-    margin-bottom: 8px;
-    height: 40px;
-}
-
-#plantilla-form{
-    width:350px;
-    background:var(--sidebar);
-    padding:30px;
-    border-left:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    overflow-y:auto;
-}
-
-#plantilla-form input,
-#plantilla-form select{
-    padding:8px;
-    background:var(--bg);
-    color:white;
-    border:1px solid var(--border);
-    border-radius:4px;
-}
-
-#plantilla-form button{
-    margin-top:10px;
-}
-
-#plantilla-form label{
-    font-size:12px;
-    color:var(--muted);
-}
-
-#status-indicator{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    padding:10px 15px;
-    border-radius:6px;
-    font-size:12px;
-    z-index:9999;
-}
-
-#status-indicator.connected{
-    background:#22c55e;
-    color:white;
-}
-
-#status-indicator.disconnected{
-    background:#ef4444;
-    color:white;
-}
-</style>
-</head>
-<body>
-
-<!-- STATUS INDICATOR -->
-<div id="status-indicator" class="disconnected">🔴 Conectando...</div>
-
-<!-- HOME -->
-<div id="home">
-    <div class="card" onclick="showGestor()">
-        <h2>📁 LISTADOS Y WORD</h2>
-    </div>
-    <div class="card" onclick="showPlantilla()">
-        <h2>📄 Promesa de Compraventa</h2>
-    </div>
-</div>
-
-<!-- GESTOR -->
-<div id="gestor-wrapper">
-<div id="gestor">
-
-<div id="sidebar">
-<div class="sidebar-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
-        <h2>DOCUMENTOS</h2>
-        <button class="danger" onclick="removeItem()">🗑 Eliminar</button>
-    </div>
-
-    <div class="btn-group">
-        <button class="primary" onclick="createCategory()">+ Categoría</button>
-        <button class="primary" onclick="createDocument()">+ Documento</button>
-        <button class="primary" onclick="goHome()">Volver</button>
-    </div>
-</div>
-    <div id="category-list"></div>
-</div>
-
-<div id="main">
-
-<div id="toolbar">
-    <button onclick="cmd('bold')"><b>B</b></button>
-    <button onclick="cmd('italic')"><i>I</i></button>
-    <button onclick="cmd('underline')"><u>U</u></button>
-
-    <select onchange="cmd('fontName', this.value)">
-        <option value="">Fuente</option>
-        <option>Arial</option>
-        <option>Georgia</option>
-        <option>Courier New</option>
-        <option>Times New Roman</option>
-        <option>Verdana</option>
-    </select>
-
-    <select onchange="setFontSize(this.value)">
-        <option value="">Tamaño</option>
-        <option value="12">12</option>
-        <option value="16">16</option>
-        <option value="20">20</option>
-        <option value="28">28</option>
-    </select>
-
-    <input type="color" onchange="cmd('foreColor', this.value)">
-
-    <button onclick="cmd('insertUnorderedList')">• Lista</button>
-    <button onclick="cmd('insertOrderedList')">1. Lista</button>
-
-    <button onclick="cmd('justifyLeft')">⇐</button>
-    <button onclick="cmd('justifyCenter')">⇔</button>
-    <button onclick="cmd('justifyRight')">⇒</button>
-
-    <button onclick="insertImage()">Imagen</button>
-
-    <div style="flex:1"></div>
-
-    <button class="success" onclick="save()">Guardar</button>
-</div>
-
-<div id="editor-container">
-    <div id="editor" contenteditable="true"></div>
-</div>
-
-<div id="placeholder" style="text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-
-    <div style="
-        margin-bottom:25px;
-        font-size:38px;
-        font-weight:900;
-        letter-spacing:3px;
-        color:#ffffff;
-        text-transform:uppercase;
-        font-family: 'Segoe UI', sans-serif;
-        text-shadow:
-            0 3px 8px rgba(0,0,0,0.7),
-            0 0 15px rgba(0,255,64,0.25);
-    ">
-        ASOVID DEL RUIZ
-    </div>
-
-    <img src="https://i.ibb.co/kg65JjPD/Chat-GPT-Image-19-mar-2026-04-12-02.png" 
-         style="
-            width:900px;
-            max-width:90%;
-            border-radius:12px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.6);
-            transition:0.3s;
-         "
-         onmouseover="this.style.transform='scale(1.05)'"
-         onmouseout="this.style.transform='scale(1)'"
-    >
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- PLANTILLA COMPLETA -->
-<div id="plantilla-wrapper">
-<div id="plantilla">
-
-<!-- ========================= -->
-<!-- VISTA DEL DOCUMENTO -->
-<!-- ========================= -->
-<div id="plantilla-preview">
-
-<!-- ========== PÁGINA 1: CONTRATO ========== -->
-<div class="doc-preview" id="docPlantilla1">
-
-<h2>PROMESA DE COMPRAVENTA DE BIEN INMUEBLE</h2>
-
-<p><strong>RELACION DE LAS PARTES:</strong></p>
-
-<p>
-<strong>VENDEDOR:</strong><br>
-JESÚS ANTONIO RUIZ HENAO, identificado con cédula de ciudadanía No 7.502.461 Expedida en la ciudad de Armenia -Quindío, y residente en el municipio de San Vicente Del Caguán -Caquetá, quien actuará en nombre propio y bajo su responsabilidad.
-</p>
-
-<p>
-<strong>COMPRADOR:</strong><br>
-<span data-field="NombreComprador">__________________________</span>, identificado con cédula de ciudadanía No <span data-field="CedulaComprador">__________________</span> Expedida en el municipio de <span data-field="Expedida">__________________________</span> Y residente en el municipio de <span data-field="Residencia">__________________________</span>, quien actuará en nombre propio y bajo su responsabilidad.
-</p>
-
-<p>Las partes en voluntad propia acuerdan las siguientes cláusulas:</p>
-
-<p>
-<strong>Primera Objeto:</strong><br>
-El presente documento tiene como objetivo otorgar el derecho de propiedad y beneficio <span data-field="Genero">al señor</span>: <span data-field="Beneficiario"></span></span> Sobre un ( 1) lote No <span data-field="Lote">______</span> de manzana <span data-field="Manzana">______</span> con un área de <span data-field="Area">______</span> m² ( <span data-field="Frente">______</span> m de frente por <span data-field="Fondo">______</span> m ), que se deriva del predio ubicado en la urbanización Ruiz Olaya De propiedad del señor Jesús Antonio Ruiz Henao, con escritura pública No 0201 y matrícula inmobiliaria No 425-80068 documento registrado en el municipio de San Vicente Del Caguán -Caquetá.
-</p>
-
-<p>
-<strong>PARAGRAFO:</strong> en esta primera cláusula se señala el número de lote con su respectiva sigla y coordenadas, dejando claro que estos datos se le otorgan al comprador.
-</p>
-
-<p>
-<strong>SEGUNDA. OBLIGACIONES DEL COMPRADOR:</strong><br>
-El COMPRADOR adquiere las siguientes obligaciones con el VENDEDOR respecto del predio ya mencionado, teniendo en cuenta que la forma de pago será financiada:
-</p>
-<p>Entregar como cuota inicial: <span data-field="CuotaInicial">___________</span> Avaluado en la suma de <span data-field="ValorInicial">_______________________________</span></p>
-<p>Cancelar el saldo pendiente de <span data-field="Saldo">____________________________</span>, suma que será pagada mediante cuotas mensuales sucesivas de <span data-field="CuotaMensual">__________________________</span> hasta la extinción total de la obligación, de conformidad con lo acordado entre las partes.</p>
-
-<p>
-<strong>PÁRAGRAFO:</strong> Se deja claro que las obligaciones mencionadas en la cláusula segunda la primera de ella ya fue cumplida por parte del COMPRADOR a la fecha de la realización del presente documento.
-</p>
-
-<p>
-<strong>TERCERA OBLIGACIONES DEL VENDEDOR:</strong>
-</p>
-
-<p>
-1. Vender un terreno libre de PIGNORACIONES, TRABAS Y/O EMBARGOS JUDICIALES.<br>
-2. Entrega de minuta de escritura después de haya pagado la totalidad del valor por el cual fue vendido el lote.
-</p>
-
-</div>
-
-<!-- ========== PÁGINA 2: CONTINUACIÓN Y FIRMAS ========== -->
-<div class="doc-preview" id="docPlantilla2">
-
-<p>
-<strong>CUARTA - PERDIDA DE DERECHO DE PROPIEDAD:</strong><br>
-El COMPRADOR perderá el derecho de propiedad del lote relacionado en la cláusula primera, si incumple en el pago de la CUOTAS fijadas y pactadas por las partes las cuales ya fueron mencionadas en la cláusula segunda.
-</p>
-
-<p>
-<strong>PARAGRAFO:</strong> las partes acordaron que después de tres meses de incumplimiento del pago de las cuotas mensuales, el COMPRADOR perderá el derecho de propiedad del terreno.
-</p>
-
-<p>
-<strong>QUINTA SESIÓN DE DERECHO DE PROPIEDA Del COMPRADOR:</strong><br>
-No podrá enajenar, ni ceder, ni vender el terreno hasta después de DOS AÑOS, contando al día después de la firma del presente documento.
-</p>
-
-<p>
-<strong>SEXTA - CLÁUSULA PENAL:</strong><br>
-De acuerdo con los términos y condiciones de esta clausura, se establece de manera clara y definitiva que no se realizarán devoluciones de dinero bajo ninguna circunstancia.
-</p>
-
-<p style="margin-top:40px;">
-Se firma el día <span data-field="Dia">______</span> (<span data-field="DiaTexto">___</span>) del mes de <span data-field="Mes">__________________</span> de <span data-field="Ano">________</span>, en el municipio de San Vicente Del Caguán-Caquetá.
-</p>
-
-<div class="firmas-container">
-    <div class="firma-box">
-        <div class="firma-linea"></div>
-        <strong>VENDEDOR:</strong><br>
-        Jesús Antonio Ruiz Henao<br>
-        Cc: 7.502.461
-    </div>
-
-    <div class="firma-box">
-        <div class="firma-linea"></div>
-        <strong>COMPRADOR:</strong><br>
-        <span data-field="NombreComprador">__________________________</span><br>
-        Cc: <span data-field="CedulaComprador">__________________________</span>
-    </div>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ========================= -->
-<!-- FORMULARIO -->
-<!-- ========================= -->
-
-<div id="plantilla-form">
-
-<h3>Rellenar Plantilla</h3>
-
-<label>Nombre Comprador</label>
-<input type="text" id="iNombreComprador" oninput="updatePlantilla('NombreComprador', this.value)">
-
-<label>Cédula</label>
-<input type="text" id="iCedulaComprador" oninput="updatePlantilla('CedulaComprador', this.value)">
-
-<label>Expedida en</label>
-<input type="text" id="iExpedida" oninput="updatePlantilla('Expedida', this.value)">
-
-<label>Residencia</label>
-<input type="text" id="iResidencia" oninput="updatePlantilla('Residencia', this.value)">
-
-<label>Beneficiario</label>
-<input type="text" id="iBeneficiario" oninput="updatePlantilla('Beneficiario', this.value)">
-
-<label>Género del beneficiario</label>
-<select id="iGenero" onchange="updateGenero(this.value)">
-    <option value="señor">Señor</option>
-    <option value="señora">Señora</option>
-</select>
-
-<label>Lote</label>
-<input type="text" id="iLote" oninput="updatePlantilla('Lote', this.value)">
-
-<label>Manzana</label>
-<input type="text" id="iManzana" oninput="updatePlantilla('Manzana', this.value)">
-
-<label>Área</label>
-<input type="text" id="iArea" oninput="updatePlantilla('Area', this.value)">
-
-<label>Frente</label>
-<input type="text" id="iFrente" oninput="updatePlantilla('Frente', this.value)">
-
-<label>Fondo</label>
-<input type="text" id="iFondo" oninput="updatePlantilla('Fondo', this.value)">
-
-<label>Cuota Inicial (dinero)</label>
-<input type="text" id="iCuotaInicial" oninput="formatearDinero('CuotaInicial', this.value)">
-
-<label>Valor Inicial (dinero)</label>
-<input type="text" id="iValorInicial" oninput="formatearDinero('ValorInicial', this.value)">
-
-<label>Saldo (dinero)</label>
-<input type="text" id="iSaldo" oninput="formatearDinero('Saldo', this.value)">
-
-<label>Cuota Mensual (dinero)</label>
-<input type="text" id="iCuotaMensual" oninput="formatearDinero('CuotaMensual', this.value)">
-
-<label>Día (número)</label>
-<input type="number" id="diaNumero" min="1" max="31" oninput="calcularDiaDelaSemana()">
-
-<label>Mes (número)</label>
-<input type="number" id="mesNumero" min="1" max="12" oninput="calcularDiaDelaSemana()">
-
-<label>Año</label>
-<input type="number" id="anoNumero" min="1900" max="2100" oninput="calcularDiaDelaSemana()">
-
-<label>Día en texto</label>
-<input type="text" id="diaTexto" readonly>
-
-<label>Mes en texto</label>
-<input type="text" id="mesTexto" readonly>
-
-<button onclick="downloadDoc()">📥 Descargar Documento</button>
-<button onclick="goHome()">🏠 Volver</button>
-
-</div>
-
-</div>
-</div>
-
-<!-- FIREBASE SDK v8 -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-<script>
-
-/* ================= FIREBASE CONFIG ================= */
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD7BpoQYNz56qvVehqx8HARDGj5RWt2G6Y",
-  authDomain: "gestor-documentos-c7470.firebaseapp.com",
-  projectId: "gestor-documentos-c7470",
-  storageBucket: "gestor-documentos-c7470.firebasestorage.app",
-  messagingSenderId: "1050570216266",
-  appId: "1:1050570216266:web:e0c70227dc4ef0e76867b3"
-};
-
-let db = null;
-let firebaseReady = false;
-
-try {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    firebaseReady = true;
-    updateStatus(true);
-    console.log("✔ Firebase inicializado correctamente");
-} catch(error) {
-    console.error("✗ Error inicializando Firebase:", error);
-    updateStatus(false);
-}
-
-/* ================= FUNCIONES DE PLANTILLA ================= */
-
-function formatearNumero(numero) {
-    if (!numero) return '';
-    const numLimpio = numero.toString().replace(/\D/g, '');
-    return numLimpio.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
-
-function numeroATexto(numero) {
-    const unidades = ['', 'un', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince'];
-    const diecis = ['', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
-    const decenas = ['', 'diez', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
-    const centenas = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
-
-    function convertirGrupo(num) {
-        let resultado = '';
-        const c = Math.floor(num / 100);
-        const d = Math.floor((num % 100) / 10);
-        const u = num % 10;
-
-        if (c === 1 && d === 0 && u === 0) {
-            resultado += 'cien ';
-        } else if (c > 0) {
-            resultado += centenas[c] + ' ';
-        }
-
-        if (num % 100 < 16) {
-            resultado += unidades[num % 100] + ' ';
-        } else if (num % 100 < 20) {
-            resultado += diecis[num % 100 - 15] + ' ';
-        } else if (num % 100 === 20) {
-            resultado += 'veinte ';
-        } else if (num % 100 < 30) {
-            resultado += 'veinti' + unidades[u] + ' ';
-        } else {
-            resultado += decenas[d];
-            if (u > 0) {
-                resultado += ' y ' + unidades[u];
-            }
-            resultado += ' ';
-        }
-        return resultado.trim();
-    }
-
-    if (numero === 0) return 'cero';
-
-    let numStr = numero.toString();
-    // Asegurar que el número tenga un mínimo de 3 dígitos para el primer grupo si es necesario
-    const paddedNumStr = numStr.padStart(Math.ceil(numStr.length / 3) * 3, '0');
-    
-    let resultado = '';
-    const grupos = [];
-
-    // Dividir el número en grupos de 3 dígitos de derecha a izquierda
-    for (let i = paddedNumStr.length; i > 0; i -= 3) {
-        grupos.unshift(parseInt(paddedNumStr.substring(Math.max(0, i - 3), i)));
-    }
-
-    const escalas = ['', 'mil', 'millón', 'mil millones', 'billón'];
-
-    for (let i = 0; i < grupos.length; i++) {
-        const grupo = grupos[i];
-        if (grupo === 0) continue;
-
-        let textoGrupo = convertirGrupo(grupo);
-        const escalaIndex = grupos.length - 1 - i;
-
-        if (escalaIndex === 1) { // Miles
-            if (grupo === 1) {
-                textoGrupo = 'mil';
-            } else {
-                textoGrupo += ' mil';
-            }
-        } else if (escalaIndex === 2) { // Millones
-            if (grupo === 1) {
-                textoGrupo = 'un millón';
-            } else {
-                textoGrupo += ' millones';
-            }
-        } else if (escalaIndex === 3) { // Mil millones
-            if (grupo === 1) {
-                textoGrupo = 'mil millones';
-            } else {
-                textoGrupo += ' mil millones';
-            }
-        }
-
-        resultado += textoGrupo + ' ';
-    }
-
-    return resultado.trim();
-}
-
-function formatearDinero(fieldName, valor) {
-    if (!valor) {
-        updatePlantilla(fieldName, '');
-        return;
-    }
-    const numLimpio = valor.replace(/\D/g, '');
-    if (!numLimpio) {
-        updatePlantilla(fieldName, '');
-        return;
-    }
-    const formateado = formatearNumero(numLimpio);
-    const numero = parseInt(numLimpio);
-    const textoNumero = numeroATexto(numero);
-    const textoFinal = `${formateado} (${textoNumero} de pesos)`;
-    updatePlantilla(fieldName, textoFinal);
-    document.getElementById(`i${fieldName}`).value = formateado;
-}
-
-function updatePlantilla(fieldName, valor) {
-    const elementos = document.querySelectorAll(`[data-field="${fieldName}"]`);
-    elementos.forEach(el => {
-        el.textContent = valor || '________________';
-    });
-}
-
-function updateGenero(valor) {
-    let texto = valor === "señora" ? "a la señora" : "al señor";
-
-    const elementos = document.querySelectorAll('[data-field="Genero"]');
-    elementos.forEach(el => {
-        el.textContent = texto;
-    });
-}
-
-function calcularDiaDelaSemana() {
-    const dia = document.getElementById('diaNumero').value;
-    const mes = document.getElementById('mesNumero').value;
-    const ano = document.getElementById('anoNumero').value;
-
-    if (dia && mes && ano) {
-        const fecha = new Date(ano, mes - 1, dia);
-        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-        
-        const diaTexto = numeroATexto(parseInt(dia));
-        const mesTexto = meses[mes - 1];
-        const anoTexto = numeroATexto(parseInt(ano));
-
-        document.getElementById('diaTexto').value = diaTexto;
-        document.getElementById('mesTexto').value = mesTexto;
-
-        updatePlantilla('Dia', dia);
-        updatePlantilla('DiaTexto', diaTexto);
-        updatePlantilla('Mes', mesTexto);
-        updatePlantilla('Ano', ano);
-    }
-}
-
-/**
- * Descarga el documento con ambas páginas en formato .docx
- * Mantiene el tamaño carta real y el salto de página entre hojas
- */
-function downloadDoc() {
-    // Clonar los elementos para no afectar el preview original
-    const page1 = document.getElementById("docPlantilla1").cloneNode(true);
-    const page2 = document.getElementById("docPlantilla2").cloneNode(true);
-    
-    // Función para limpiar estilos problemáticos en Word
-    const cleanForWord = (element) => {
-        element.style.display = 'block';
-        element.style.width = '100%';
-        element.style.minHeight = 'auto';
-        element.style.margin = '0';
-        element.style.padding = '0';
-        element.style.boxShadow = 'none';
-        
-        // Convertir firmas-container a tabla para Word
-        const firmas = element.querySelector('.firmas-container');
-        if (firmas) {
-            const boxes = element.querySelectorAll('.firma-box');
-            let tableHtml = `<table style="width:100%; margin-top:50pt; border-collapse:collapse;"><tr>`;
-            
-            boxes.forEach(box => {
-                // Clonar contenido
-                const tempBox = box.cloneNode(true);
-
-                // Reemplazar línea de firma por versión compatible con Word
-                const firmaLineaElement = tempBox.querySelector('.firma-linea');
-                if (firmaLineaElement) {
-                    firmaLineaElement.outerHTML = `
-                        <div style="width:100%; border-top:1px solid black; height:1px; font-size:1px; line-height:1px;">&nbsp;</div>
-                    `;
-                }
-
-                tableHtml += `
-                <td style="
-                    width:50%; 
-                    text-align:center; 
-                    vertical-align:bottom; 
-                    padding:0 20pt;
-                    height:80pt;
-                ">
-                    ${tempBox.innerHTML}
-                </td>`;
-            });
-
-            tableHtml += `</tr></table>`;
-            firmas.outerHTML = tableHtml;
-        }
-    };
-
-    cleanForWord(page1);
-    cleanForWord(page2);
-
-    const htmlContent = `<!DOCTYPE html>
-<html xmlns:o='urn:schemas-microsoft-com:office:office' 
-      xmlns:w='urn:schemas-microsoft-com:office:word' 
-      xmlns='http://www.w3.org/TR/REC-html40'>
-<head>
     <meta charset="UTF-8">
-    <!--[if gte mso 9]>
-    <xml>
-        <w:WordDocument>
-            <w:View>Print</w:View>
-            <w:Zoom>100</w:Zoom>
-            <w:DoNotOptimizeForBrowser/>
-        </w:WordDocument>
-    </xml>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASOVID DEL RUIZ - SaaS Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
-        @page {
-            size: 8.5in 11in;
-            margin: 0.75in;
-            mso-header-margin: 0.5in;
-            mso-footer-margin: 0.5in;
+        :root {
+            /* Colores principales */
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-tertiary: #1e293b;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --accent-primary: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            --glow-color: rgba(56, 189, 248, 0.3);
+            
+            /* Textos */
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #64748b;
+            
+            /* Bordes */
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --border-shine: rgba(255, 255, 255, 0.05);
+            
+            /* Sombras */
+            --shadow-deep: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        body { 
-            font-family: 'Times New Roman', serif; 
-            font-size: 12pt; 
-            line-height: 1.2; 
-            color: black;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        p { 
-            margin: 0 0 10pt 0; 
-            text-align: justify; 
-            mso-pagination: widow-orphan; 
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
 
-        h2 { 
-            text-align: center; 
-            margin: 0 0 15pt 0; 
-            font-size: 14pt; 
-            font-weight: bold; 
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
-        strong { font-weight: bold; }
+        /* ==================== FONDO ANIMADO ==================== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+            animation: meshGradient 15s ease infinite;
+        }
 
-        table { border-collapse: collapse; }
+        @keyframes meshGradient {
+            0%, 100% {
+                background: 
+                    radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 60%);
+            }
+            50% {
+                background: 
+                    radial-gradient(circle at 30% 60%, rgba(56, 189, 248, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 70%, rgba(129, 140, 248, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 60%);
+            }
+        }
 
-        .page-break { 
-            page-break-after: always; 
-            mso-break-type: section-break; 
+        /* ==================== ANIMACIONES GLOBALES ==================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), var(--shadow-deep);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(56, 189, 248, 0.5), var(--shadow-deep);
+            }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ==================== CONTENEDORES PRINCIPALES ==================== */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+        }
+
+        .view {
+            display: none;
+            width: 100%;
+            height: 100%;
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .view.active {
+            display: flex;
+        }
+
+        /* ==================== HOME VIEW ==================== */
+        #homeView {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            padding: 40px;
+        }
+
+        .home-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .home-subtitle {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .home-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .home-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 32px;
+            padding: 50px 40px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation-fill-mode: both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+            animation: shine 0.6s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) rotateX(5deg);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px var(--glow-color), var(--shadow-deep);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            line-height: 1.8;
+        }
+
+        /* ==================== GESTOR VIEW ==================== */
+        #gestorView {
+            flex-direction: row;
+            gap: 0;
+        }
+
+        .sidebar {
+            width: 340px;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: inset -1px 0 0 var(--border-shine);
+        }
+
+        .sidebar-header {
+            padding: 30px;
+            border-bottom: 1px solid var(--border-glass);
+            flex-shrink: 0;
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-primary);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        button:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        button.primary {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+        }
+
+        button.primary:hover {
+            background: rgba(56, 189, 248, 0.8);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        button.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        button.danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .category-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        .category-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .category-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .category-list::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 3px;
+        }
+
+        .category-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.5);
+        }
+
+        .category-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            user-select: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .category-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--text-secondary);
+            border-left-color: var(--accent-primary);
+        }
+
+        .category-item.active {
+            color: var(--accent-primary);
+            background: rgba(56, 189, 248, 0.15);
+            border-left-color: var(--accent-primary);
+        }
+
+        .doc-list {
+            display: none;
+            padding-left: 10px;
+        }
+
+        .doc-list.open {
+            display: block;
+        }
+
+        .doc-item {
+            padding: 10px 20px 10px 40px;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            user-select: none;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .doc-item:hover {
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--text-secondary);
+        }
+
+        .doc-item.active {
+            color: var(--accent-primary);
+            background: rgba(56, 189, 248, 0.12);
+            border-left-color: var(--accent-primary);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-glass);
+            align-items: center;
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+
+        .toolbar-separator {
+            width: 1px;
+            height: 24px;
+            background: var(--border-glass);
+            margin: 0 5px;
+        }
+
+        .toolbar select,
+        .toolbar input[type="color"] {
+            padding: 8px 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toolbar select:hover,
+        .toolbar input[type="color"]:hover {
+            border-color: var(--accent-primary);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .toolbar select:focus,
+        .toolbar input[type="color"]:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+
+        .editor-container {
+            flex: 1;
+            padding: 40px 20px;
+            overflow-y: auto;
+            background: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+        }
+
+        .editor-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .editor-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .editor-container::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 4px;
+        }
+
+        .editor-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.4);
+        }
+
+        .editor {
+            background: white;
+            color: #000;
+            padding: 100px;
+            border-radius: 8px;
+            min-height: 1200px;
+            width: 100%;
+            max-width: 850px;
+            outline: none;
+            line-height: 1.8;
+            font-size: 16px;
+            box-shadow: var(--shadow-deep);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .editor:focus {
+            box-shadow: var(--shadow-deep), 0 0 30px rgba(56, 189, 248, 0.2);
+        }
+
+        .placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* ==================== PLANTILLA VIEW ==================== */
+        #plantillaView {
+            flex-direction: row;
+            gap: 0;
+        }
+
+        .plantilla-preview {
+            flex: 1;
+            padding: 40px;
+            background: var(--bg-secondary);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .plantilla-preview::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .plantilla-preview::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .plantilla-preview::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.2);
+            border-radius: 4px;
+        }
+
+        .doc-preview {
+            width: 816px;
+            min-height: 1056px;
+            background: white;
+            color: #000;
+            padding: 72px;
+            margin: 20px auto;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+            box-shadow: var(--shadow-deep);
+            box-sizing: border-box;
+        }
+
+        .doc-preview h2 {
+            text-align: center;
+            margin: 0 0 20px 0;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .doc-preview p {
+            margin: 0 0 12px 0;
+            text-align: justify;
+        }
+
+        .doc-preview strong {
+            font-weight: bold;
+        }
+
+        .firmas-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 60px;
+            width: 100%;
+        }
+
+        .firma-box {
+            width: 45%;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .firma-linea {
+            border-top: 1px solid black;
+            margin-bottom: 8px;
+            height: 40px;
+        }
+
+        .plantilla-form {
+            width: 380px;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-left: 1px solid var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            box-shadow: inset 1px 0 0 var(--border-shine);
+        }
+
+        .plantilla-form::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .plantilla-form::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .plantilla-form::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 3px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-tertiary);
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px 12px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-glass);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-submit {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+
+        .form-submit:hover {
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .plantilla-form {
+                width: 320px;
+            }
+
+            .doc-preview {
+                width: 100%;
+                max-width: 700px;
+                padding: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home-title {
+                font-size: 42px;
+            }
+
+            #gestorView,
+            #plantillaView {
+                flex-direction: column;
+            }
+
+            .sidebar,
+            .plantilla-form {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-glass);
+                max-height: 200px;
+            }
+
+            .editor {
+                padding: 50px 30px;
+                max-width: 100%;
+            }
+
+            .doc-preview {
+                width: 100%;
+                padding: 30px;
+            }
+
+            .plantilla-preview {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div>${page1.innerHTML}</div>
-    <div class="page-break"></div>
-    <div>${page2.innerHTML}</div>
-</body>
-</html>`;
-    
-    const blob = new Blob(['\ufeff', htmlContent], { type: "application/msword" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "contrato_promesa_compraventa.doc";
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+    <div class="container">
+        <!-- HOME VIEW -->
+        <div id="homeView" class="view active">
+            <div class="home-header">
+                <div class="home-subtitle">Bienvenido a</div>
+                <h1 class="home-title">ASOVID DEL RUIZ</h1>
+                <p class="home-description">Plataforma SaaS Premium para gestión de documentos y plantillas</p>
+            </div>
 
-function goHome() {
-    document.getElementById("gestor-wrapper").style.display = "none";
-    document.getElementById("plantilla-wrapper").style.display = "none";
-    document.getElementById("home").style.display = "flex";
-}
+            <div class="bento-grid">
+                <div class="card" onclick="navigateTo('gestor')">
+                    <span class="card-icon">📁</span>
+                    <h3 class="card-title">Gestor de Documentos</h3>
+                    <p class="card-description">Crea, organiza y edita documentos en tiempo real con nuestro editor avanzado</p>
+                </div>
 
-/* ================= GESTOR LOGIC (NO MODIFICADA) ================= */
+                <div class="card" onclick="navigateTo('plantilla')">
+                    <span class="card-icon">📄</span>
+                    <h3 class="card-title">Generador de Plantillas</h3>
+                    <p class="card-description">Genera plantillas profesionales con vista previa en tiempo real</p>
+                </div>
+            </div>
+        </div>
 
-async function loadData() {
-    if (!firebaseReady || !db) return;
-    try {
-        const snap = await db.collection("categorias").get();
-        data = {};
-        for (const catDoc of snap.docs) {
-            const catId = catDoc.id;
-            data[catId] = {};
-            const docsSnap = await db.collection("categorias").doc(catId).collection("documentos").get();
-            docsSnap.forEach(d => {
-                data[catId][d.id] = d.data();
+        <!-- GESTOR VIEW -->
+        <div id="gestorView" class="view">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Documentos</h2>
+                    <div class="btn-group" style="margin-top: 15px;">
+                        <button class="primary" onclick="createCategory()">+ Categoría</button>
+                        <button class="primary" onclick="createDocument()">+ Documento</button>
+                    </div>
+                    <div class="btn-group" style="margin-top: 10px;">
+                        <button class="danger" onclick="deleteItem()">🗑 Eliminar</button>
+                        <button onclick="navigateTo('home')">← Volver</button>
+                    </div>
+                </div>
+
+                <div class="category-list" id="categoryList"></div>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="toolbar" id="toolbar">
+                    <button onclick="execCommand('bold')"><b>B</b></button>
+                    <button onclick="execCommand('italic')"><i>I</i></button>
+                    <button onclick="execCommand('underline')"><u>U</u></button>
+                    
+                    <div class="toolbar-separator"></div>
+                    
+                    <select onchange="execCommand('fontName', this.value)">
+                        <option value="">Fuente</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Verdana">Verdana</option>
+                    </select>
+
+                    <select onchange="setFontSize(this.value)">
+                        <option value="">Tamaño</option>
+                        <option value="12">12</option>
+                        <option value="16">16</option>
+                        <option value="20">20</option>
+                        <option value="28">28</option>
+                    </select>
+
+                    <input type="color" onchange="execCommand('foreColor', this.value)" title="Color de texto">
+                    
+                    <div class="toolbar-separator"></div>
+                    
+                    <button onclick="execCommand('insertUnorderedList')">• Lista</button>
+                    <button onclick="execCommand('insertOrderedList')">1. Lista</button>
+
+                    <div class="toolbar-separator"></div>
+
+                    <button onclick="execCommand('justifyLeft')">⇐</button>
+                    <button onclick="execCommand('justifyCenter')">⇔</button>
+                    <button onclick="execCommand('justifyRight')">⇒</button>
+
+                    <div style="flex: 1;"></div>
+
+                    <button class="primary" onclick="saveDocument()" style="background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%); color: #020617;">✓ Guardar</button>
+                </div>
+
+                <div class="editor-container">
+                    <div id="editor" class="editor" contenteditable="true" spellcheck="false"></div>
+                </div>
+
+                <div class="placeholder" id="placeholder" style="display: flex;">
+                    Selecciona o crea un documento para comenzar a editar
+                </div>
+            </div>
+        </div>
+
+        <!-- PLANTILLA VIEW -->
+        <div id="plantillaView" class="view">
+            <!-- PREVIEW -->
+            <div class="plantilla-preview">
+                <div class="doc-preview" id="docPreview">
+                    <h2>PROMESA DE COMPRAVENTA DE BIEN INMUEBLE</h2>
+
+                    <p><strong>RELACIÓN DE LAS PARTES:</strong></p>
+
+                    <p>
+                        <strong>VENDEDOR:</strong><br>
+                        JESÚS ANTONIO RUIZ HENAO, identificado con cédula de ciudadanía No 7.502.461 Expedida en la ciudad de Armenia -Quindío, y residente en el municipio de San Vicente Del Caguán -Caquetá, quien actuará en nombre propio y bajo su responsabilidad.
+                    </p>
+
+                    <p>
+                        <strong>COMPRADOR:</strong><br>
+                        <span id="previewNombreComprador">__________________________</span>, identificado con cédula de ciudadanía No <span id="previewCedulaComprador">__________________</span> Expedida en el municipio de <span id="previewExpedida">__________________________</span> Y residente en el municipio de <span id="previewResidencia">__________________________</span>, quien actuará en nombre propio y bajo su responsabilidad.
+                    </p>
+
+                    <p>Las partes en voluntad propia acuerdan las siguientes cláusulas:</p>
+
+                    <p>
+                        <strong>Primera Objeto:</strong><br>
+                        El presente documento tiene como objetivo otorgar el derecho de propiedad y beneficio <span id="previewGenero">al señor</span>: <span id="previewBeneficiario"></span> Sobre un ( 1) lote No <span id="previewLote">______</span> de manzana <span id="previewManzana">______</span> con un área de <span id="previewArea">______</span> m² ( <span id="previewFrente">______</span> m de frente por <span id="previewFondo">______</span> m ), que se deriva del predio ubicado en la urbanización Ruiz Olaya De propiedad del señor Jesús Antonio Ruiz Henao, con escritura pública No 0201 y matrícula inmobiliaria No 425-80068 documento registrado en el municipio de San Vicente Del Caguán -Caquetá.
+                    </p>
+
+                    <p>
+                        <strong>SEGUNDA. OBLIGACIONES DEL COMPRADOR:</strong><br>
+                        El COMPRADOR adquiere las siguientes obligaciones con el VENDEDOR respecto del predio ya mencionado, teniendo en cuenta que la forma de pago será financiada:
+                    </p>
+                    <p>Entregar como cuota inicial: <span id="previewCuotaInicial">___________</span> Avaluado en la suma de <span id="previewValorInicial">_______________________________</span></p>
+                    <p>Cancelar el saldo pendiente de <span id="previewSaldo">____________________________</span>, suma que será pagada mediante cuotas mensuales sucesivas de <span id="previewCuotaMensual">__________________________</span> hasta la extinción total de la obligación, de conformidad con lo acordado entre las partes.</p>
+
+                    <div class="firmas-container">
+                        <div class="firma-box">
+                            <div class="firma-linea"></div>
+                            <strong>VENDEDOR</strong>
+                        </div>
+                        <div class="firma-box">
+                            <div class="firma-linea"></div>
+                            <strong>COMPRADOR</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM -->
+            <div class="plantilla-form">
+                <h3 style="color: var(--text-primary); margin-bottom: 10px; font-size: 16px; letter-spacing: 1px;">Datos de Comprador</h3>
+
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="nombreComprador" placeholder="Nombre del comprador" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Cédula</label>
+                    <input type="text" id="cedulaComprador" placeholder="Número de cédula" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Expedida en</label>
+                    <input type="text" id="expedida" placeholder="Municipio de expedición" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Residencia</label>
+                    <input type="text" id="residencia" placeholder="Municipio de residencia" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Género</label>
+                    <select id="genero" onchange="updatePreview()">
+                        <option value="al señor">Al Señor</option>
+                        <option value="a la señora">A la Señora</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Beneficiario</label>
+                    <input type="text" id="beneficiario" placeholder="Nombre del beneficiario" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Lote</label>
+                    <input type="text" id="lote" placeholder="Número de lote" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Manzana</label>
+                    <input type="text" id="manzana" placeholder="Número de manzana" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Área (m²)</label>
+                    <input type="text" id="area" placeholder="Área en metros cuadrados" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Frente (m)</label>
+                    <input type="text" id="frente" placeholder="Medida de frente" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Fondo (m)</label>
+                    <input type="text" id="fondo" placeholder="Medida de fondo" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Cuota Inicial</label>
+                    <input type="text" id="cuotaInicial" placeholder="Valor de cuota inicial" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Valor Inicial</label>
+                    <input type="text" id="valorInicial" placeholder="Valor en letras" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Saldo Pendiente</label>
+                    <input type="text" id="saldo" placeholder="Saldo a pagar" onchange="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Cuota Mensual</label>
+                    <input type="text" id="cuotaMensual" placeholder="Valor de cuota mensual" onchange="updatePreview()">
+                </div>
+
+                <button class="form-submit" onclick="downloadPlantilla()">📥 Descargar PDF</button>
+                <button class="form-submit" style="background: rgba(56, 189, 248, 0.2); color: var(--accent-primary); margin-top: 10px;" onclick="navigateTo('home')">← Volver</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== STATE MANAGEMENT ====================
+        let currentView = 'home';
+        let documents = JSON.parse(localStorage.getItem('documents')) || {};
+        let selectedCategory = null;
+        let selectedDocument = null;
+
+        // ==================== NAVIGATION ====================
+        function navigateTo(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(view + 'View').classList.add('active');
+            currentView = view;
+
+            if (view === 'gestor') {
+                renderCategoryList();
+            }
+        }
+
+        // ==================== GESTOR FUNCTIONS ====================
+        function createCategory() {
+            const name = prompt('Nombre de la categoría:');
+            if (!name) return;
+
+            if (!documents[name]) {
+                documents[name] = [];
+                saveDocuments();
+                renderCategoryList();
+            }
+        }
+
+        function createDocument() {
+            if (!selectedCategory) {
+                alert('Selecciona una categoría primero');
+                return;
+            }
+
+            const name = prompt('Nombre del documento:');
+            if (!name) return;
+
+            documents[selectedCategory].push({ name, content: '' });
+            saveDocuments();
+            renderCategoryList();
+        }
+
+        function deleteItem() {
+            if (selectedDocument !== null && selectedCategory) {
+                documents[selectedCategory].splice(selectedDocument, 1);
+                if (documents[selectedCategory].length === 0) {
+                    delete documents[selectedCategory];
+                }
+                selectedDocument = null;
+                saveDocuments();
+                renderCategoryList();
+                clearEditor();
+            } else if (selectedCategory) {
+                delete documents[selectedCategory];
+                selectedCategory = null;
+                saveDocuments();
+                renderCategoryList();
+                clearEditor();
+            }
+        }
+
+        function renderCategoryList() {
+            const list = document.getElementById('categoryList');
+            list.innerHTML = '';
+
+            Object.keys(documents).forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category-item' + (selectedCategory === category ? ' active' : '');
+                categoryDiv.textContent = '📁 ' + category;
+                categoryDiv.onclick = () => selectCategory(category);
+                list.appendChild(categoryDiv);
+
+                const docList = document.createElement('div');
+                docList.className = 'doc-list' + (selectedCategory === category ? ' open' : '');
+
+                documents[category].forEach((doc, idx) => {
+                    const docDiv = document.createElement('div');
+                    docDiv.className = 'doc-item' + (selectedDocument === idx && selectedCategory === category ? ' active' : '');
+                    docDiv.textContent = '📄 ' + doc.name;
+                    docDiv.onclick = () => selectDocument(category, idx);
+                    docList.appendChild(docDiv);
+                });
+
+                list.appendChild(docList);
             });
         }
-        render();
-    } catch (error) {
-        console.error("Error cargando datos:", error);
-    }
-}
 
-function render() {
-    const list = document.getElementById("category-list");
-    list.innerHTML = "";
-    for (const catId in data) {
-        const catDiv = document.createElement("div");
-        catDiv.className = "category";
-        const header = document.createElement("div");
-        header.className = "category-header" + (currentCategory === catId ? " active" : "");
-        header.textContent = catId;
-        header.onclick = () => toggleCategory(catId);
-        catDiv.appendChild(header);
-        const docsDiv = document.createElement("div");
-        docsDiv.className = "docs" + (openCategories[catId] ? " open" : "");
-        for (const docId in data[catId]) {
-            const docDiv = document.createElement("div");
-            docDiv.className = "doc" + (currentDoc === docId ? " active" : "");
-            docDiv.textContent = docId;
-            docDiv.onclick = (e) => {
-                e.stopPropagation();
-                openDoc(catId, docId);
-            };
-            docsDiv.appendChild(docDiv);
+        function selectCategory(category) {
+            selectedCategory = category;
+            selectedDocument = null;
+            renderCategoryList();
+            clearEditor();
         }
-        catDiv.appendChild(docsDiv);
-        list.appendChild(catDiv);
-    }
-}
 
-function toggleCategory(catId) {
-    // Si vuelves a hacer click en la misma categoría
-    if (currentCategory === catId) {
-        openCategories[catId] = !openCategories[catId];
-
-        // 🔥 si se cierra, cerrar documento también
-        if (!openCategories[catId]) {
-            currentDoc = null;
-            closeEditor();
+        function selectDocument(category, idx) {
+            selectedCategory = category;
+            selectedDocument = idx;
+            renderCategoryList();
+            loadDocument();
         }
-    } else {
-        // Cambias de categoría
-        currentCategory = catId;
-        openCategories[catId] = true;
 
-        // 🔥 cerrar documento anterior
-        currentDoc = null;
-        closeEditor();
-    }
+        function loadDocument() {
+            if (selectedCategory && selectedDocument !== null) {
+                const doc = documents[selectedCategory][selectedDocument];
+                document.getElementById('editor').innerHTML = doc.content;
+                document.getElementById('editor-container').style.display = 'flex';
+                document.getElementById('placeholder').style.display = 'none';
+                document.getElementById('toolbar').style.display = 'flex';
+            }
+        }
 
-    render();
-}
-function openDoc(catId, docId) {
-    currentCategory = catId;
-    currentDoc = docId;
-    const docData = data[catId][docId];
-    document.getElementById("placeholder").style.display = "none";
-    document.getElementById("toolbar").style.display = "flex";
-    document.getElementById("editor-container").style.display = "block";
-    document.getElementById("editor").innerHTML = docData.content || "";
-    render();
-}
+        function clearEditor() {
+            document.getElementById('editor').innerHTML = '';
+            document.getElementById('editor-container').style.display = 'none';
+            document.getElementById('placeholder').style.display = 'flex';
+            document.getElementById('toolbar').style.display = 'none';
+        }
 
-function closeEditor() {
-    currentDoc = null; // 🔥 esto es clave
-    document.getElementById("placeholder").style.display = "flex";
-    document.getElementById("toolbar").style.display = "none";
-    document.getElementById("editor-container").style.display = "none";
-}
-async function save() {
-    if (!currentDoc || !currentCategory) return;
-    const content = document.getElementById("editor").innerHTML;
-    try {
-        await db.collection("categorias").doc(currentCategory).collection("documentos").doc(currentDoc).update({
-            content: content,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        function saveDocument() {
+            if (selectedCategory && selectedDocument !== null) {
+                documents[selectedCategory][selectedDocument].content = document.getElementById('editor').innerHTML;
+                saveDocuments();
+                alert('Documento guardado correctamente');
+            }
+        }
+
+        function saveDocuments() {
+            localStorage.setItem('documents', JSON.stringify(documents));
+        }
+
+        // ==================== EDITOR COMMANDS ====================
+        function execCommand(command, value = null) {
+            document.execCommand(command, false, value);
+            document.getElementById('editor').focus();
+        }
+
+        function setFontSize(size) {
+            if (size) {
+                execCommand('fontSize', size);
+            }
+        }
+
+        // ==================== PLANTILLA FUNCTIONS ====================
+        function updatePreview() {
+            document.getElementById('previewNombreComprador').textContent = document.getElementById('nombreComprador').value || '__________________________';
+            document.getElementById('previewCedulaComprador').textContent = document.getElementById('cedulaComprador').value || '__________________';
+            document.getElementById('previewExpedida').textContent = document.getElementById('expedida').value || '__________________________';
+            document.getElementById('previewResidencia').textContent = document.getElementById('residencia').value || '__________________________';
+            document.getElementById('previewGenero').textContent = document.getElementById('genero').value || 'al señor';
+            document.getElementById('previewBeneficiario').textContent = document.getElementById('beneficiario').value || '';
+            document.getElementById('previewLote').textContent = document.getElementById('lote').value || '______';
+            document.getElementById('previewManzana').textContent = document.getElementById('manzana').value || '______';
+            document.getElementById('previewArea').textContent = document.getElementById('area').value || '______';
+            document.getElementById('previewFrente').textContent = document.getElementById('frente').value || '______';
+            document.getElementById('previewFondo').textContent = document.getElementById('fondo').value || '______';
+            document.getElementById('previewCuotaInicial').textContent = document.getElementById('cuotaInicial').value || '___________';
+            document.getElementById('previewValorInicial').textContent = document.getElementById('valorInicial').value || '_______________________________';
+            document.getElementById('previewSaldo').textContent = document.getElementById('saldo').value || '____________________________';
+            document.getElementById('previewCuotaMensual').textContent = document.getElementById('cuotaMensual').value || '__________________________';
+        }
+
+        function downloadPlantilla() {
+            alert('Función de descarga PDF disponible con integración backend');
+        }
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cargar documentos iniciales si existen
+            if (Object.keys(documents).length === 0) {
+                documents = {
+                    'General': [{ name: 'Documento 1', content: '' }],
+                    'Contratos': [{ name: 'Contrato 1', content: '' }]
+                };
+                saveDocuments();
+            }
         });
-        data[currentCategory][currentDoc].content = content;
-        alert("✔ Guardado");
-    } catch (error) {
-        alert("Error al guardar: " + error.message);
-    }
-}
-
-async function createCategory() {
-    const name = prompt("Nombre de la categoría:");
-    if (!name) return;
-    try {
-        await db.collection("categorias").doc(name).set({ createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-        data[name] = {};
-        render();
-    } catch (error) {
-        alert("Error: " + error.message);
-    }
-}
-
-async function createDocument() {
-    if (!currentCategory) {
-        alert("Selecciona una categoría primero");
-        return;
-    }
-    const name = prompt("Nombre del documento:");
-    if (!name) return;
-    try {
-        await db.collection("categorias").doc(currentCategory).collection("documentos").doc(name).set({
-            content: "",
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        data[currentCategory][name] = { content: "" };
-        openDoc(currentCategory, name);
-    } catch (error) {
-        alert("Error: " + error.message);
-    }
-}
-
-async function removeItem() {
-    if (!currentDoc && !currentCategory) return;
-    if (currentDoc) {
-        if (!confirm("¿Eliminar documento?")) return;
-        await db.collection("categorias").doc(currentCategory).collection("documentos").doc(currentDoc).delete();
-        delete data[currentCategory][currentDoc];
-        currentDoc = null;
-        closeEditor();
-    } else {
-        if (!confirm("¿Eliminar categoría?")) return;
-        await db.collection("categorias").doc(currentCategory).delete();
-        delete data[currentCategory];
-        currentCategory = null;
-    }
-    render();
-}
-
-function cmd(command, value = null) {
-    document.execCommand(command, false, value);
-}
-
-function insertImage() {
-    const url = prompt("URL de la imagen:");
-    if (url) cmd("insertImage", url);
-}
-
-function setFontSize(size) {
-    if (!size) return;
-    document.execCommand("fontSize", false, "7");
-    const fonts = document.getElementsByTagName("font");
-    for (let i = 0; i < fonts.length; i++) {
-        if (fonts[i].size == "7") {
-            fonts[i].removeAttribute("size");
-            fonts[i].style.fontSize = size + "px";
-        }
-    }
-}
-
-function updateStatus(connected) {
-    const indicator = document.getElementById("status-indicator");
-    if (connected) {
-        indicator.textContent = "🟢 Conectado";
-        indicator.className = "connected";
-    } else {
-        indicator.textContent = "🔴 Desconectado";
-        indicator.className = "disconnected";
-    }
-}
-
-function showGestor() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("gestor-wrapper").style.display = "block";
-    loadData();
-}
-
-function showPlantilla() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("plantilla-wrapper").style.display = "block";
-}
-
-let data = {};
-let currentCategory = null;
-let currentDoc = null;
-let openCategories = {};
-
-</script>
+    </script>
 </body>
 </html>
