@@ -328,6 +328,17 @@
             border-color: #ef4444;
         }
 
+        button.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        button.success:hover {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+        }
+
         .category-list {
             flex: 1;
             overflow-y: auto;
@@ -351,7 +362,11 @@
             background: rgba(56, 189, 248, 0.5);
         }
 
-        .category-item {
+        .category {
+            margin-bottom: 5px;
+        }
+
+        .category-header {
             padding: 12px 20px;
             cursor: pointer;
             color: var(--text-tertiary);
@@ -363,28 +378,28 @@
             letter-spacing: 0.5px;
         }
 
-        .category-item:hover {
+        .category-header:hover {
             background: rgba(56, 189, 248, 0.1);
             color: var(--text-secondary);
             border-left-color: var(--accent-primary);
         }
 
-        .category-item.active {
+        .category-header.active {
             color: var(--accent-primary);
             background: rgba(56, 189, 248, 0.15);
             border-left-color: var(--accent-primary);
         }
 
-        .doc-list {
+        .docs {
             display: none;
             padding-left: 10px;
         }
 
-        .doc-list.open {
+        .docs.open {
             display: block;
         }
 
-        .doc-item {
+        .doc {
             padding: 10px 20px 10px 40px;
             cursor: pointer;
             color: var(--text-tertiary);
@@ -394,12 +409,12 @@
             border-left: 2px solid transparent;
         }
 
-        .doc-item:hover {
+        .doc:hover {
             background: rgba(56, 189, 248, 0.08);
             color: var(--text-secondary);
         }
 
-        .doc-item.active {
+        .doc.active {
             color: var(--accent-primary);
             background: rgba(56, 189, 248, 0.12);
             border-left-color: var(--accent-primary);
@@ -456,33 +471,37 @@
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
-        .editor-container {
+        #editor-container {
             flex: 1;
             padding: 40px 20px;
             overflow-y: auto;
             background: var(--bg-primary);
-            display: flex;
+            display: none;
             justify-content: center;
         }
 
-        .editor-container::-webkit-scrollbar {
+        #editor-container.show {
+            display: flex;
+        }
+
+        #editor-container::-webkit-scrollbar {
             width: 8px;
         }
 
-        .editor-container::-webkit-scrollbar-track {
+        #editor-container::-webkit-scrollbar-track {
             background: transparent;
         }
 
-        .editor-container::-webkit-scrollbar-thumb {
+        #editor-container::-webkit-scrollbar-thumb {
             background: rgba(56, 189, 248, 0.2);
             border-radius: 4px;
         }
 
-        .editor-container::-webkit-scrollbar-thumb:hover {
+        #editor-container::-webkit-scrollbar-thumb:hover {
             background: rgba(56, 189, 248, 0.4);
         }
 
-        .editor {
+        #editor {
             background: white;
             color: #000;
             padding: 100px;
@@ -497,11 +516,11 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .editor:focus {
+        #editor:focus {
             box-shadow: var(--shadow-deep), 0 0 30px rgba(56, 189, 248, 0.2);
         }
 
-        .placeholder {
+        #placeholder {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -510,6 +529,11 @@
             color: var(--text-tertiary);
             font-style: italic;
             font-size: 18px;
+            background: var(--bg-primary);
+        }
+
+        #placeholder.hidden {
+            display: none;
         }
 
         /* ==================== PLANTILLA VIEW ==================== */
@@ -518,7 +542,7 @@
             gap: 0;
         }
 
-        .plantilla-preview {
+        #plantilla-preview {
             flex: 1;
             padding: 40px;
             background: var(--bg-secondary);
@@ -528,15 +552,15 @@
             align-items: center;
         }
 
-        .plantilla-preview::-webkit-scrollbar {
+        #plantilla-preview::-webkit-scrollbar {
             width: 8px;
         }
 
-        .plantilla-preview::-webkit-scrollbar-track {
+        #plantilla-preview::-webkit-scrollbar-track {
             background: transparent;
         }
 
-        .plantilla-preview::-webkit-scrollbar-thumb {
+        #plantilla-preview::-webkit-scrollbar-thumb {
             background: rgba(56, 189, 248, 0.2);
             border-radius: 4px;
         }
@@ -554,6 +578,9 @@
             text-align: justify;
             box-shadow: var(--shadow-deep);
             box-sizing: border-box;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
         }
 
         .doc-preview h2 {
@@ -593,7 +620,7 @@
             height: 40px;
         }
 
-        .plantilla-form {
+        #plantilla-form {
             width: 380px;
             background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(20px);
@@ -606,15 +633,15 @@
             box-shadow: inset 1px 0 0 var(--border-shine);
         }
 
-        .plantilla-form::-webkit-scrollbar {
+        #plantilla-form::-webkit-scrollbar {
             width: 6px;
         }
 
-        .plantilla-form::-webkit-scrollbar-track {
+        #plantilla-form::-webkit-scrollbar-track {
             background: transparent;
         }
 
-        .plantilla-form::-webkit-scrollbar-thumb {
+        #plantilla-form::-webkit-scrollbar-thumb {
             background: rgba(56, 189, 248, 0.3);
             border-radius: 3px;
         }
@@ -658,7 +685,7 @@
         }
 
         .form-submit {
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 12px 20px;
             background: var(--accent-gradient);
             color: var(--bg-primary);
@@ -681,6 +708,30 @@
             transform: translateY(0);
         }
 
+        #status-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 12px;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-glass);
+        }
+
+        #status-indicator.connected {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        #status-indicator.disconnected {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 1024px) {
             .bento-grid {
@@ -692,7 +743,7 @@
                 width: 280px;
             }
 
-            .plantilla-form {
+            #plantilla-form {
                 width: 320px;
             }
 
@@ -714,14 +765,14 @@
             }
 
             .sidebar,
-            .plantilla-form {
+            #plantilla-form {
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid var(--border-glass);
                 max-height: 200px;
             }
 
-            .editor {
+            #editor {
                 padding: 50px 30px;
                 max-width: 100%;
             }
@@ -731,13 +782,16 @@
                 padding: 30px;
             }
 
-            .plantilla-preview {
+            #plantilla-preview {
                 padding: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- STATUS INDICATOR -->
+    <div id="status-indicator" class="disconnected">🔴 Conectando...</div>
+
     <div class="container">
         <!-- HOME VIEW -->
         <div id="homeView" class="view active">
@@ -748,13 +802,13 @@
             </div>
 
             <div class="bento-grid">
-                <div class="card" onclick="navigateTo('gestor')">
+                <div class="card" onclick="showGestor()">
                     <span class="card-icon">📁</span>
                     <h3 class="card-title">Gestor de Documentos</h3>
                     <p class="card-description">Crea, organiza y edita documentos en tiempo real con nuestro editor avanzado</p>
                 </div>
 
-                <div class="card" onclick="navigateTo('plantilla')">
+                <div class="card" onclick="showPlantilla()">
                     <span class="card-icon">📄</span>
                     <h3 class="card-title">Generador de Plantillas</h3>
                     <p class="card-description">Genera plantillas profesionales con vista previa en tiempo real</p>
@@ -773,30 +827,30 @@
                         <button class="primary" onclick="createDocument()">+ Documento</button>
                     </div>
                     <div class="btn-group" style="margin-top: 10px;">
-                        <button class="danger" onclick="deleteItem()">🗑 Eliminar</button>
-                        <button onclick="navigateTo('home')">← Volver</button>
+                        <button class="danger" onclick="removeItem()">🗑 Eliminar</button>
+                        <button onclick="goHome()">← Volver</button>
                     </div>
                 </div>
 
-                <div class="category-list" id="categoryList"></div>
+                <div class="category-list" id="category-list"></div>
             </div>
 
             <!-- MAIN CONTENT -->
             <div class="main-content">
                 <div class="toolbar" id="toolbar">
-                    <button onclick="execCommand('bold')"><b>B</b></button>
-                    <button onclick="execCommand('italic')"><i>I</i></button>
-                    <button onclick="execCommand('underline')"><u>U</u></button>
+                    <button onclick="cmd('bold')"><b>B</b></button>
+                    <button onclick="cmd('italic')"><i>I</i></button>
+                    <button onclick="cmd('underline')"><u>U</u></button>
                     
                     <div class="toolbar-separator"></div>
                     
-                    <select onchange="execCommand('fontName', this.value)">
+                    <select onchange="cmd('fontName', this.value)">
                         <option value="">Fuente</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                        <option value="Verdana">Verdana</option>
+                        <option>Arial</option>
+                        <option>Georgia</option>
+                        <option>Courier New</option>
+                        <option>Times New Roman</option>
+                        <option>Verdana</option>
                     </select>
 
                     <select onchange="setFontSize(this.value)">
@@ -807,30 +861,56 @@
                         <option value="28">28</option>
                     </select>
 
-                    <input type="color" onchange="execCommand('foreColor', this.value)" title="Color de texto">
+                    <input type="color" onchange="cmd('foreColor', this.value)" title="Color de texto">
                     
                     <div class="toolbar-separator"></div>
                     
-                    <button onclick="execCommand('insertUnorderedList')">• Lista</button>
-                    <button onclick="execCommand('insertOrderedList')">1. Lista</button>
+                    <button onclick="cmd('insertUnorderedList')">• Lista</button>
+                    <button onclick="cmd('insertOrderedList')">1. Lista</button>
 
                     <div class="toolbar-separator"></div>
 
-                    <button onclick="execCommand('justifyLeft')">⇐</button>
-                    <button onclick="execCommand('justifyCenter')">⇔</button>
-                    <button onclick="execCommand('justifyRight')">⇒</button>
+                    <button onclick="cmd('justifyLeft')">⇐</button>
+                    <button onclick="cmd('justifyCenter')">⇔</button>
+                    <button onclick="cmd('justifyRight')">⇒</button>
+
+                    <button onclick="insertImage()">Imagen</button>
 
                     <div style="flex: 1;"></div>
 
-                    <button class="primary" onclick="saveDocument()" style="background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%); color: #020617;">✓ Guardar</button>
+                    <button class="success" onclick="save()" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white;">✓ Guardar</button>
                 </div>
 
-                <div class="editor-container">
-                    <div id="editor" class="editor" contenteditable="true" spellcheck="false"></div>
+                <div id="editor-container">
+                    <div id="editor" contenteditable="true" spellcheck="false"></div>
                 </div>
 
-                <div class="placeholder" id="placeholder" style="display: flex;">
-                    Selecciona o crea un documento para comenzar a editar
+                <div id="placeholder" style="text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                    <div style="
+                        margin-bottom:25px;
+                        font-size:38px;
+                        font-weight:900;
+                        letter-spacing:3px;
+                        color:#ffffff;
+                        text-transform:uppercase;
+                        font-family: 'Montserrat', sans-serif;
+                        text-shadow:
+                            0 3px 8px rgba(0,0,0,0.7),
+                            0 0 15px rgba(56, 189, 248, 0.25);
+                    ">
+                        ASOVID DEL RUIZ
+                    </div>
+                    <img src="https://i.ibb.co/kg65JjPD/Chat-GPT-Image-19-mar-2026-04-12-02.png" 
+                         style="
+                            width:900px;
+                            max-width:90%;
+                            border-radius:12px;
+                            box-shadow:0 10px 30px rgba(0,0,0,0.6);
+                            transition:0.3s;
+                         "
+                         onmouseover="this.style.transform='scale(1.05)'"
+                         onmouseout="this.style.transform='scale(1)'"
+                    >
                 </div>
             </div>
         </div>
@@ -838,11 +918,12 @@
         <!-- PLANTILLA VIEW -->
         <div id="plantillaView" class="view">
             <!-- PREVIEW -->
-            <div class="plantilla-preview">
-                <div class="doc-preview" id="docPreview">
+            <div id="plantilla-preview">
+                <!-- PÁGINA 1: CONTRATO -->
+                <div class="doc-preview" id="docPlantilla1">
                     <h2>PROMESA DE COMPRAVENTA DE BIEN INMUEBLE</h2>
 
-                    <p><strong>RELACIÓN DE LAS PARTES:</strong></p>
+                    <p><strong>RELACION DE LAS PARTES:</strong></p>
 
                     <p>
                         <strong>VENDEDOR:</strong><br>
@@ -851,302 +932,686 @@
 
                     <p>
                         <strong>COMPRADOR:</strong><br>
-                        <span id="previewNombreComprador">__________________________</span>, identificado con cédula de ciudadanía No <span id="previewCedulaComprador">__________________</span> Expedida en el municipio de <span id="previewExpedida">__________________________</span> Y residente en el municipio de <span id="previewResidencia">__________________________</span>, quien actuará en nombre propio y bajo su responsabilidad.
+                        <span data-field="NombreComprador">__________________________</span>, identificado con cédula de ciudadanía No <span data-field="CedulaComprador">__________________</span> Expedida en el municipio de <span data-field="Expedida">__________________________</span> Y residente en el municipio de <span data-field="Residencia">__________________________</span>, quien actuará en nombre propio y bajo su responsabilidad.
                     </p>
 
                     <p>Las partes en voluntad propia acuerdan las siguientes cláusulas:</p>
 
                     <p>
                         <strong>Primera Objeto:</strong><br>
-                        El presente documento tiene como objetivo otorgar el derecho de propiedad y beneficio <span id="previewGenero">al señor</span>: <span id="previewBeneficiario"></span> Sobre un ( 1) lote No <span id="previewLote">______</span> de manzana <span id="previewManzana">______</span> con un área de <span id="previewArea">______</span> m² ( <span id="previewFrente">______</span> m de frente por <span id="previewFondo">______</span> m ), que se deriva del predio ubicado en la urbanización Ruiz Olaya De propiedad del señor Jesús Antonio Ruiz Henao, con escritura pública No 0201 y matrícula inmobiliaria No 425-80068 documento registrado en el municipio de San Vicente Del Caguán -Caquetá.
+                        El presente documento tiene como objetivo otorgar el derecho de propiedad y beneficio <span data-field="Genero">al señor</span>: <span data-field="Beneficiario"></span> Sobre un ( 1) lote No <span data-field="Lote">______</span> de manzana <span data-field="Manzana">______</span> con un área de <span data-field="Area">______</span> m² ( <span data-field="Frente">______</span> m de frente por <span data-field="Fondo">______</span> m ), que se deriva del predio ubicado en la urbanización Ruiz Olaya De propiedad del señor Jesús Antonio Ruiz Henao, con escritura pública No 0201 y matrícula inmobiliaria No 425-80068 documento registrado en el municipio de San Vicente Del Caguán -Caquetá.
+                    </p>
+
+                    <p>
+                        <strong>PARAGRAFO:</strong> en esta primera cláusula se señala el número de lote con su respectiva sigla y coordenadas, dejando claro que estos datos se le otorgan al comprador.
                     </p>
 
                     <p>
                         <strong>SEGUNDA. OBLIGACIONES DEL COMPRADOR:</strong><br>
                         El COMPRADOR adquiere las siguientes obligaciones con el VENDEDOR respecto del predio ya mencionado, teniendo en cuenta que la forma de pago será financiada:
                     </p>
-                    <p>Entregar como cuota inicial: <span id="previewCuotaInicial">___________</span> Avaluado en la suma de <span id="previewValorInicial">_______________________________</span></p>
-                    <p>Cancelar el saldo pendiente de <span id="previewSaldo">____________________________</span>, suma que será pagada mediante cuotas mensuales sucesivas de <span id="previewCuotaMensual">__________________________</span> hasta la extinción total de la obligación, de conformidad con lo acordado entre las partes.</p>
+                    <p>Entregar como cuota inicial: <span data-field="CuotaInicial">___________</span> Avaluado en la suma de <span data-field="ValorInicial">_______________________________</span></p>
+                    <p>Cancelar el saldo pendiente de <span data-field="Saldo">____________________________</span>, suma que será pagada mediante cuotas mensuales sucesivas de <span data-field="CuotaMensual">__________________________</span> hasta la extinción total de la obligación, de conformidad con lo acordado entre las partes.</p>
+
+                    <p>
+                        <strong>PÁRAGRAFO:</strong> Se deja claro que las obligaciones mencionadas en la cláusula segunda la primera de ella ya fue cumplida por parte del COMPRADOR a la fecha de la realización del presente documento.
+                    </p>
+
+                    <p>
+                        1. Vender un terreno libre de PIGNORACIONES, TRABAS Y/O EMBARGOS JUDICIALES.<br>
+                        2. Entrega de minuta de escritura después de haya pagado la totalidad del valor por el cual fue vendido el lote.
+                    </p>
+                </div>
+
+                <!-- PÁGINA 2: CONTINUACIÓN Y FIRMAS -->
+                <div class="doc-preview" id="docPlantilla2">
+                    <p>
+                        <strong>CUARTA - PERDIDA DE DERECHO DE PROPIEDAD:</strong><br>
+                        El COMPRADOR perderá el derecho de propiedad del lote relacionado en la cláusula primera, si incumple en el pago de la CUOTAS fijadas y pactadas por las partes las cuales ya fueron mencionadas en la cláusula segunda.
+                    </p>
+
+                    <p>
+                        <strong>PARAGRAFO:</strong> las partes acordaron que después de tres meses de incumplimiento del pago de las cuotas mensuales, el COMPRADOR perderá el derecho de propiedad del terreno.
+                    </p>
+
+                    <p>
+                        <strong>QUINTA SESIÓN DE DERECHO DE PROPIEDA Del COMPRADOR:</strong><br>
+                        No podrá enajenar, ni ceder, ni vender el terreno hasta después de DOS AÑOS, contando al día después de la firma del presente documento.
+                    </p>
+
+                    <p>
+                        <strong>SEXTA - CLÁUSULA PENAL:</strong><br>
+                        De acuerdo con los términos y condiciones de esta clausura, se establece de manera clara y definitiva que no se realizarán devoluciones de dinero bajo ninguna circunstancia.
+                    </p>
+
+                    <p style="margin-top:40px;">
+                        Se firma el día <span data-field="Dia">______</span> (<span data-field="DiaTexto">___</span>) del mes de <span data-field="Mes">__________________</span> de <span data-field="Ano">________</span>, en el municipio de San Vicente Del Caguán-Caquetá.
+                    </p>
 
                     <div class="firmas-container">
                         <div class="firma-box">
                             <div class="firma-linea"></div>
-                            <strong>VENDEDOR</strong>
+                            <strong>VENDEDOR:</strong><br>
+                            Jesús Antonio Ruiz Henao<br>
+                            Cc: 7.502.461
                         </div>
+
                         <div class="firma-box">
                             <div class="firma-linea"></div>
-                            <strong>COMPRADOR</strong>
+                            <strong>COMPRADOR:</strong><br>
+                            <span data-field="NombreComprador">__________________________</span><br>
+                            Cc: <span data-field="CedulaComprador">__________________________</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- FORM -->
-            <div class="plantilla-form">
-                <h3 style="color: var(--text-primary); margin-bottom: 10px; font-size: 16px; letter-spacing: 1px;">Datos de Comprador</h3>
+            <div id="plantilla-form">
+                <h3 style="color: var(--text-primary); margin-bottom: 10px; font-size: 16px; letter-spacing: 1px;">Rellenar Plantilla</h3>
 
                 <div class="form-group">
-                    <label>Nombre Completo</label>
-                    <input type="text" id="nombreComprador" placeholder="Nombre del comprador" onchange="updatePreview()">
+                    <label>Nombre Comprador</label>
+                    <input type="text" id="iNombreComprador" oninput="updatePlantilla('NombreComprador', this.value)">
                 </div>
 
                 <div class="form-group">
                     <label>Cédula</label>
-                    <input type="text" id="cedulaComprador" placeholder="Número de cédula" onchange="updatePreview()">
+                    <input type="text" id="iCedulaComprador" oninput="updatePlantilla('CedulaComprador', this.value)">
                 </div>
 
                 <div class="form-group">
                     <label>Expedida en</label>
-                    <input type="text" id="expedida" placeholder="Municipio de expedición" onchange="updatePreview()">
+                    <input type="text" id="iExpedida" oninput="updatePlantilla('Expedida', this.value)">
                 </div>
 
                 <div class="form-group">
                     <label>Residencia</label>
-                    <input type="text" id="residencia" placeholder="Municipio de residencia" onchange="updatePreview()">
-                </div>
-
-                <div class="form-group">
-                    <label>Género</label>
-                    <select id="genero" onchange="updatePreview()">
-                        <option value="al señor">Al Señor</option>
-                        <option value="a la señora">A la Señora</option>
-                    </select>
+                    <input type="text" id="iResidencia" oninput="updatePlantilla('Residencia', this.value)">
                 </div>
 
                 <div class="form-group">
                     <label>Beneficiario</label>
-                    <input type="text" id="beneficiario" placeholder="Nombre del beneficiario" onchange="updatePreview()">
+                    <input type="text" id="iBeneficiario" oninput="updatePlantilla('Beneficiario', this.value)">
+                </div>
+
+                <div class="form-group">
+                    <label>Género del beneficiario</label>
+                    <select id="iGenero" onchange="updateGenero(this.value)">
+                        <option value="señor">Señor</option>
+                        <option value="señora">Señora</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label>Lote</label>
-                    <input type="text" id="lote" placeholder="Número de lote" onchange="updatePreview()">
+                    <input type="text" id="iLote" oninput="updatePlantilla('Lote', this.value)">
                 </div>
 
                 <div class="form-group">
                     <label>Manzana</label>
-                    <input type="text" id="manzana" placeholder="Número de manzana" onchange="updatePreview()">
+                    <input type="text" id="iManzana" oninput="updatePlantilla('Manzana', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Área (m²)</label>
-                    <input type="text" id="area" placeholder="Área en metros cuadrados" onchange="updatePreview()">
+                    <label>Área</label>
+                    <input type="text" id="iArea" oninput="updatePlantilla('Area', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Frente (m)</label>
-                    <input type="text" id="frente" placeholder="Medida de frente" onchange="updatePreview()">
+                    <label>Frente</label>
+                    <input type="text" id="iFrente" oninput="updatePlantilla('Frente', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Fondo (m)</label>
-                    <input type="text" id="fondo" placeholder="Medida de fondo" onchange="updatePreview()">
+                    <label>Fondo</label>
+                    <input type="text" id="iFondo" oninput="updatePlantilla('Fondo', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Cuota Inicial</label>
-                    <input type="text" id="cuotaInicial" placeholder="Valor de cuota inicial" onchange="updatePreview()">
+                    <label>Cuota Inicial (dinero)</label>
+                    <input type="text" id="iCuotaInicial" oninput="formatearDinero('CuotaInicial', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Valor Inicial</label>
-                    <input type="text" id="valorInicial" placeholder="Valor en letras" onchange="updatePreview()">
+                    <label>Valor Inicial (dinero)</label>
+                    <input type="text" id="iValorInicial" oninput="formatearDinero('ValorInicial', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Saldo Pendiente</label>
-                    <input type="text" id="saldo" placeholder="Saldo a pagar" onchange="updatePreview()">
+                    <label>Saldo (dinero)</label>
+                    <input type="text" id="iSaldo" oninput="formatearDinero('Saldo', this.value)">
                 </div>
 
                 <div class="form-group">
-                    <label>Cuota Mensual</label>
-                    <input type="text" id="cuotaMensual" placeholder="Valor de cuota mensual" onchange="updatePreview()">
+                    <label>Cuota Mensual (dinero)</label>
+                    <input type="text" id="iCuotaMensual" oninput="formatearDinero('CuotaMensual', this.value)">
                 </div>
 
-                <button class="form-submit" onclick="downloadPlantilla()">📥 Descargar PDF</button>
-                <button class="form-submit" style="background: rgba(56, 189, 248, 0.2); color: var(--accent-primary); margin-top: 10px;" onclick="navigateTo('home')">← Volver</button>
+                <div class="form-group">
+                    <label>Día (número)</label>
+                    <input type="number" id="diaNumero" min="1" max="31" oninput="calcularDiaDelaSemana()">
+                </div>
+
+                <div class="form-group">
+                    <label>Mes (número)</label>
+                    <input type="number" id="mesNumero" min="1" max="12" oninput="calcularDiaDelaSemana()">
+                </div>
+
+                <div class="form-group">
+                    <label>Año</label>
+                    <input type="number" id="anoNumero" min="1900" max="2100" oninput="calcularDiaDelaSemana()">
+                </div>
+
+                <div class="form-group">
+                    <label>Día en texto</label>
+                    <input type="text" id="diaTexto" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Mes en texto</label>
+                    <input type="text" id="mesTexto" readonly>
+                </div>
+
+                <button class="form-submit" onclick="downloadDoc()">📥 Descargar Documento</button>
+                <button class="form-submit" style="background: rgba(56, 189, 248, 0.2); color: var(--accent-primary); margin-top: 10px;" onclick="goHome()">← Volver</button>
             </div>
         </div>
     </div>
 
+    <!-- FIREBASE SDK v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
     <script>
-        // ==================== STATE MANAGEMENT ====================
-        let currentView = 'home';
-        let documents = JSON.parse(localStorage.getItem('documents')) || {};
-        let selectedCategory = null;
-        let selectedDocument = null;
+        /* ================= FIREBASE CONFIG ================= */
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7BpoQYNz56qvVehqx8HARDGj5RWt2G6Y",
+            authDomain: "gestor-documentos-c7470.firebaseapp.com",
+            projectId: "gestor-documentos-c7470",
+            storageBucket: "gestor-documentos-c7470.firebasestorage.app",
+            messagingSenderId: "1050570216266",
+            appId: "1:1050570216266:web:e0c70227dc4ef0e76867b3"
+        };
 
-        // ==================== NAVIGATION ====================
-        function navigateTo(view) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(view + 'View').classList.add('active');
-            currentView = view;
+        let db = null;
+        let firebaseReady = false;
 
-            if (view === 'gestor') {
-                renderCategoryList();
-            }
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            firebaseReady = true;
+            updateStatus(true);
+            console.log("✔ Firebase inicializado correctamente");
+        } catch(error) {
+            console.error("✗ Error inicializando Firebase:", error);
+            updateStatus(false);
         }
 
-        // ==================== GESTOR FUNCTIONS ====================
-        function createCategory() {
-            const name = prompt('Nombre de la categoría:');
-            if (!name) return;
+        /* ================= FUNCIONES DE PLANTILLA ================= */
 
-            if (!documents[name]) {
-                documents[name] = [];
-                saveDocuments();
-                renderCategoryList();
-            }
+        function formatearNumero(numero) {
+            if (!numero) return '';
+            const numLimpio = numero.toString().replace(/\D/g, '');
+            return numLimpio.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
-        function createDocument() {
-            if (!selectedCategory) {
-                alert('Selecciona una categoría primero');
+        function numeroATexto(numero) {
+            const unidades = ['', 'un', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince'];
+            const diecis = ['', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
+            const decenas = ['', 'diez', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+            const centenas = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
+
+            function convertirGrupo(num) {
+                let resultado = '';
+                const c = Math.floor(num / 100);
+                const d = Math.floor((num % 100) / 10);
+                const u = num % 10;
+
+                if (c === 1 && d === 0 && u === 0) {
+                    resultado += 'cien ';
+                } else if (c > 0) {
+                    resultado += centenas[c] + ' ';
+                }
+
+                if (num % 100 < 16) {
+                    resultado += unidades[num % 100] + ' ';
+                } else if (num % 100 < 20) {
+                    resultado += diecis[num % 100 - 15] + ' ';
+                } else if (num % 100 === 20) {
+                    resultado += 'veinte ';
+                } else if (num % 100 < 30) {
+                    resultado += 'veinti' + unidades[u] + ' ';
+                } else {
+                    resultado += decenas[d];
+                    if (u > 0) {
+                        resultado += ' y ' + unidades[u];
+                    }
+                    resultado += ' ';
+                }
+                return resultado.trim();
+            }
+
+            if (numero === 0) return 'cero';
+
+            let numStr = numero.toString();
+            const paddedNumStr = numStr.padStart(Math.ceil(numStr.length / 3) * 3, '0');
+            
+            let resultado = '';
+            const grupos = [];
+
+            for (let i = paddedNumStr.length; i > 0; i -= 3) {
+                grupos.unshift(parseInt(paddedNumStr.substring(Math.max(0, i - 3), i)));
+            }
+
+            const escalas = ['', 'mil', 'millón', 'mil millones', 'billón'];
+
+            for (let i = 0; i < grupos.length; i++) {
+                const grupo = grupos[i];
+                if (grupo === 0) continue;
+
+                let textoGrupo = convertirGrupo(grupo);
+                const escalaIndex = grupos.length - 1 - i;
+
+                if (escalaIndex === 1) {
+                    if (grupo === 1) {
+                        textoGrupo = 'mil';
+                    } else {
+                        textoGrupo += ' mil';
+                    }
+                } else if (escalaIndex === 2) {
+                    if (grupo === 1) {
+                        textoGrupo = 'un millón';
+                    } else {
+                        textoGrupo += ' millones';
+                    }
+                } else if (escalaIndex === 3) {
+                    if (grupo === 1) {
+                        textoGrupo = 'mil millones';
+                    } else {
+                        textoGrupo += ' mil millones';
+                    }
+                }
+
+                resultado += textoGrupo + ' ';
+            }
+
+            return resultado.trim();
+        }
+
+        function formatearDinero(fieldName, valor) {
+            if (!valor) {
+                updatePlantilla(fieldName, '');
                 return;
             }
-
-            const name = prompt('Nombre del documento:');
-            if (!name) return;
-
-            documents[selectedCategory].push({ name, content: '' });
-            saveDocuments();
-            renderCategoryList();
-        }
-
-        function deleteItem() {
-            if (selectedDocument !== null && selectedCategory) {
-                documents[selectedCategory].splice(selectedDocument, 1);
-                if (documents[selectedCategory].length === 0) {
-                    delete documents[selectedCategory];
-                }
-                selectedDocument = null;
-                saveDocuments();
-                renderCategoryList();
-                clearEditor();
-            } else if (selectedCategory) {
-                delete documents[selectedCategory];
-                selectedCategory = null;
-                saveDocuments();
-                renderCategoryList();
-                clearEditor();
+            const numLimpio = valor.replace(/\D/g, '');
+            if (!numLimpio) {
+                updatePlantilla(fieldName, '');
+                return;
             }
+            const formateado = formatearNumero(numLimpio);
+            const numero = parseInt(numLimpio);
+            const textoNumero = numeroATexto(numero);
+            const textoFinal = formateado + ' (' + textoNumero + ')';
+            updatePlantilla(fieldName, textoFinal);
+            document.getElementById(`i${fieldName}`).value = formateado;
         }
 
-        function renderCategoryList() {
-            const list = document.getElementById('categoryList');
-            list.innerHTML = '';
-
-            Object.keys(documents).forEach(category => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'category-item' + (selectedCategory === category ? ' active' : '');
-                categoryDiv.textContent = '📁 ' + category;
-                categoryDiv.onclick = () => selectCategory(category);
-                list.appendChild(categoryDiv);
-
-                const docList = document.createElement('div');
-                docList.className = 'doc-list' + (selectedCategory === category ? ' open' : '');
-
-                documents[category].forEach((doc, idx) => {
-                    const docDiv = document.createElement('div');
-                    docDiv.className = 'doc-item' + (selectedDocument === idx && selectedCategory === category ? ' active' : '');
-                    docDiv.textContent = '📄 ' + doc.name;
-                    docDiv.onclick = () => selectDocument(category, idx);
-                    docList.appendChild(docDiv);
-                });
-
-                list.appendChild(docList);
+        function updatePlantilla(fieldName, valor) {
+            const elementos = document.querySelectorAll(`[data-field="${fieldName}"]`);
+            elementos.forEach(el => {
+                el.textContent = valor || '________________';
             });
         }
 
-        function selectCategory(category) {
-            selectedCategory = category;
-            selectedDocument = null;
-            renderCategoryList();
-            clearEditor();
+        function updateGenero(valor) {
+            let texto = valor === "señora" ? "a la señora" : "al señor";
+            const elementos = document.querySelectorAll('[data-field="Genero"]');
+            elementos.forEach(el => {
+                el.textContent = texto;
+            });
         }
 
-        function selectDocument(category, idx) {
-            selectedCategory = category;
-            selectedDocument = idx;
-            renderCategoryList();
-            loadDocument();
-        }
+        function calcularDiaDelaSemana() {
+            const dia = document.getElementById('diaNumero').value;
+            const mes = document.getElementById('mesNumero').value;
+            const ano = document.getElementById('anoNumero').value;
 
-        function loadDocument() {
-            if (selectedCategory && selectedDocument !== null) {
-                const doc = documents[selectedCategory][selectedDocument];
-                document.getElementById('editor').innerHTML = doc.content;
-                document.getElementById('editor-container').style.display = 'flex';
-                document.getElementById('placeholder').style.display = 'none';
-                document.getElementById('toolbar').style.display = 'flex';
+            if (dia && mes && ano) {
+                const fecha = new Date(ano, mes - 1, dia);
+                const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+                
+                const diaTexto = numeroATexto(parseInt(dia));
+                const mesTexto = meses[mes - 1];
+                const anoTexto = numeroATexto(parseInt(ano));
+
+                document.getElementById('diaTexto').value = diaTexto;
+                document.getElementById('mesTexto').value = mesTexto;
+
+                updatePlantilla('Dia', dia);
+                updatePlantilla('DiaTexto', diaTexto);
+                updatePlantilla('Mes', mesTexto);
+                updatePlantilla('Ano', ano);
             }
         }
 
-        function clearEditor() {
-            document.getElementById('editor').innerHTML = '';
-            document.getElementById('editor-container').style.display = 'none';
-            document.getElementById('placeholder').style.display = 'flex';
-            document.getElementById('toolbar').style.display = 'none';
+        function downloadDoc() {
+            const page1 = document.getElementById("docPlantilla1").cloneNode(true);
+            const page2 = document.getElementById("docPlantilla2").cloneNode(true);
+            
+            const cleanForWord = (element) => {
+                element.style.display = 'block';
+                element.style.width = '100%';
+                element.style.minHeight = 'auto';
+                element.style.margin = '0';
+                element.style.padding = '0';
+                element.style.boxShadow = 'none';
+                
+                const firmas = element.querySelector('.firmas-container');
+                if (firmas) {
+                    const boxes = element.querySelectorAll('.firma-box');
+                    let tableHtml = `<table style="width:100%; margin-top:50pt; border-collapse:collapse;"><tr>`;
+                    
+                    boxes.forEach(box => {
+                        const tempBox = box.cloneNode(true);
+                        const firmaLineaElement = tempBox.querySelector('.firma-linea');
+                        if (firmaLineaElement) {
+                            firmaLineaElement.outerHTML = `
+                                <div style="width:100%; border-top:1px solid black; height:1px; font-size:1px; line-height:1px;">&nbsp;</div>
+                            `;
+                        }
+
+                        tableHtml += `
+                        <td style="
+                            width:50%; 
+                            text-align:center; 
+                            vertical-align:bottom; 
+                            padding:0 20pt;
+                            height:80pt;
+                        ">
+                            ${tempBox.innerHTML}
+                        </td>`;
+                    });
+
+                    tableHtml += `</tr></table>`;
+                    firmas.outerHTML = tableHtml;
+                }
+            };
+
+            cleanForWord(page1);
+            cleanForWord(page2);
+
+            const htmlContent = `<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' 
+      xmlns:w='urn:schemas-microsoft-com:office:word' 
+      xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+    <meta charset="UTF-8">
+    <!--[if gte mso 9]>
+    <xml>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>100</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+        @page {
+            size: 8.5in 11in;
+            margin: 0.75in;
+            mso-header-margin: 0.5in;
+            mso-footer-margin: 0.5in;
         }
 
-        function saveDocument() {
-            if (selectedCategory && selectedDocument !== null) {
-                documents[selectedCategory][selectedDocument].content = document.getElementById('editor').innerHTML;
-                saveDocuments();
-                alert('Documento guardado correctamente');
+        body { 
+            font-family: 'Times New Roman', serif; 
+            font-size: 12pt; 
+            line-height: 1.2; 
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        p { 
+            margin: 0 0 10pt 0; 
+            text-align: justify; 
+            mso-pagination: widow-orphan; 
+        }
+
+        h2 { 
+            text-align: center; 
+            margin: 0 0 15pt 0; 
+            font-size: 14pt; 
+            font-weight: bold; 
+        }
+
+        strong { font-weight: bold; }
+
+        table { border-collapse: collapse; }
+
+        .page-break { 
+            page-break-after: always; 
+            mso-break-type: section-break; 
+        }
+    </style>
+</head>
+<body>
+    <div>${page1.innerHTML}</div>
+    <div class="page-break"></div>
+    <div>${page2.innerHTML}</div>
+</body>
+</html>`;
+            
+            const blob = new Blob(['\ufeff', htmlContent], { type: "application/msword" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "contrato_promesa_compraventa.doc";
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function goHome() {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('homeView').classList.add('active');
+        }
+
+        /* ================= GESTOR LOGIC ================= */
+
+        async function loadData() {
+            if (!firebaseReady || !db) return;
+            try {
+                const snap = await db.collection("categorias").get();
+                data = {};
+                for (const catDoc of snap.docs) {
+                    const catId = catDoc.id;
+                    data[catId] = {};
+                    const docsSnap = await db.collection("categorias").doc(catId).collection("documentos").get();
+                    docsSnap.forEach(d => {
+                        data[catId][d.id] = d.data();
+                    });
+                }
+                render();
+            } catch (error) {
+                console.error("Error cargando datos:", error);
             }
         }
 
-        function saveDocuments() {
-            localStorage.setItem('documents', JSON.stringify(documents));
+        function render() {
+            const list = document.getElementById("category-list");
+            list.innerHTML = "";
+            for (const catId in data) {
+                const catDiv = document.createElement("div");
+                catDiv.className = "category";
+                const header = document.createElement("div");
+                header.className = "category-header" + (currentCategory === catId ? " active" : "");
+                header.textContent = catId;
+                header.onclick = () => toggleCategory(catId);
+                catDiv.appendChild(header);
+                const docsDiv = document.createElement("div");
+                docsDiv.className = "docs" + (openCategories[catId] ? " open" : "");
+                for (const docId in data[catId]) {
+                    const docDiv = document.createElement("div");
+                    docDiv.className = "doc" + (currentDoc === docId ? " active" : "");
+                    docDiv.textContent = docId;
+                    docDiv.onclick = (e) => {
+                        e.stopPropagation();
+                        openDoc(catId, docId);
+                    };
+                    docsDiv.appendChild(docDiv);
+                }
+                catDiv.appendChild(docsDiv);
+                list.appendChild(catDiv);
+            }
         }
 
-        // ==================== EDITOR COMMANDS ====================
-        function execCommand(command, value = null) {
+        function toggleCategory(catId) {
+            if (currentCategory === catId) {
+                openCategories[catId] = !openCategories[catId];
+                if (!openCategories[catId]) {
+                    currentDoc = null;
+                    closeEditor();
+                }
+            } else {
+                currentCategory = catId;
+                openCategories[catId] = true;
+                currentDoc = null;
+                closeEditor();
+            }
+            render();
+        }
+
+        function openDoc(catId, docId) {
+            currentCategory = catId;
+            currentDoc = docId;
+            const docData = data[catId][docId];
+            document.getElementById("placeholder").classList.add("hidden");
+            document.getElementById("editor-container").classList.add("show");
+            document.getElementById("toolbar").style.display = "flex";
+            document.getElementById("editor").innerHTML = docData.content || "";
+            render();
+        }
+
+        function closeEditor() {
+            currentDoc = null;
+            document.getElementById("placeholder").classList.remove("hidden");
+            document.getElementById("editor-container").classList.remove("show");
+            document.getElementById("toolbar").style.display = "none";
+        }
+
+        async function save() {
+            if (!currentDoc || !currentCategory) return;
+            const content = document.getElementById("editor").innerHTML;
+            try {
+                await db.collection("categorias").doc(currentCategory).collection("documentos").doc(currentDoc).update({
+                    content: content,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                data[currentCategory][currentDoc].content = content;
+                alert("✔ Guardado");
+            } catch (error) {
+                alert("Error al guardar: " + error.message);
+            }
+        }
+
+        async function createCategory() {
+            const name = prompt("Nombre de la categoría:");
+            if (!name) return;
+            try {
+                await db.collection("categorias").doc(name).set({ createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+                data[name] = {};
+                render();
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        }
+
+        async function createDocument() {
+            if (!currentCategory) {
+                alert("Selecciona una categoría primero");
+                return;
+            }
+            const name = prompt("Nombre del documento:");
+            if (!name) return;
+            try {
+                await db.collection("categorias").doc(currentCategory).collection("documentos").doc(name).set({
+                    content: "",
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                data[currentCategory][name] = { content: "" };
+                openDoc(currentCategory, name);
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        }
+
+        async function removeItem() {
+            if (!currentDoc && !currentCategory) return;
+            if (currentDoc) {
+                if (!confirm("¿Eliminar documento?")) return;
+                await db.collection("categorias").doc(currentCategory).collection("documentos").doc(currentDoc).delete();
+                delete data[currentCategory][currentDoc];
+                currentDoc = null;
+                closeEditor();
+            } else {
+                if (!confirm("¿Eliminar categoría?")) return;
+                await db.collection("categorias").doc(currentCategory).delete();
+                delete data[currentCategory];
+                currentCategory = null;
+            }
+            render();
+        }
+
+        function cmd(command, value = null) {
             document.execCommand(command, false, value);
-            document.getElementById('editor').focus();
+            document.getElementById("editor").focus();
+        }
+
+        function insertImage() {
+            const url = prompt("URL de la imagen:");
+            if (url) cmd("insertImage", url);
         }
 
         function setFontSize(size) {
-            if (size) {
-                execCommand('fontSize', size);
+            if (!size) return;
+            document.execCommand("fontSize", false, "7");
+            const fonts = document.getElementsByTagName("font");
+            for (let i = 0; i < fonts.length; i++) {
+                if (fonts[i].size == "7") {
+                    fonts[i].removeAttribute("size");
+                    fonts[i].style.fontSize = size + "px";
+                }
             }
         }
 
-        // ==================== PLANTILLA FUNCTIONS ====================
-        function updatePreview() {
-            document.getElementById('previewNombreComprador').textContent = document.getElementById('nombreComprador').value || '__________________________';
-            document.getElementById('previewCedulaComprador').textContent = document.getElementById('cedulaComprador').value || '__________________';
-            document.getElementById('previewExpedida').textContent = document.getElementById('expedida').value || '__________________________';
-            document.getElementById('previewResidencia').textContent = document.getElementById('residencia').value || '__________________________';
-            document.getElementById('previewGenero').textContent = document.getElementById('genero').value || 'al señor';
-            document.getElementById('previewBeneficiario').textContent = document.getElementById('beneficiario').value || '';
-            document.getElementById('previewLote').textContent = document.getElementById('lote').value || '______';
-            document.getElementById('previewManzana').textContent = document.getElementById('manzana').value || '______';
-            document.getElementById('previewArea').textContent = document.getElementById('area').value || '______';
-            document.getElementById('previewFrente').textContent = document.getElementById('frente').value || '______';
-            document.getElementById('previewFondo').textContent = document.getElementById('fondo').value || '______';
-            document.getElementById('previewCuotaInicial').textContent = document.getElementById('cuotaInicial').value || '___________';
-            document.getElementById('previewValorInicial').textContent = document.getElementById('valorInicial').value || '_______________________________';
-            document.getElementById('previewSaldo').textContent = document.getElementById('saldo').value || '____________________________';
-            document.getElementById('previewCuotaMensual').textContent = document.getElementById('cuotaMensual').value || '__________________________';
-        }
-
-        function downloadPlantilla() {
-            alert('Función de descarga PDF disponible con integración backend');
-        }
-
-        // ==================== INITIALIZATION ====================
-        document.addEventListener('DOMContentLoaded', () => {
-            // Cargar documentos iniciales si existen
-            if (Object.keys(documents).length === 0) {
-                documents = {
-                    'General': [{ name: 'Documento 1', content: '' }],
-                    'Contratos': [{ name: 'Contrato 1', content: '' }]
-                };
-                saveDocuments();
+        function updateStatus(connected) {
+            const indicator = document.getElementById("status-indicator");
+            if (connected) {
+                indicator.textContent = "🟢 Conectado";
+                indicator.className = "connected";
+            } else {
+                indicator.textContent = "🔴 Desconectado";
+                indicator.className = "disconnected";
             }
-        });
+        }
+
+        function showGestor() {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('gestorView').classList.add('active');
+            loadData();
+        }
+
+        function showPlantilla() {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('plantillaView').classList.add('active');
+        }
+
+        let data = {};
+        let currentCategory = null;
+        let currentDoc = null;
+        let openCategories = {};
     </script>
 </body>
 </html>
