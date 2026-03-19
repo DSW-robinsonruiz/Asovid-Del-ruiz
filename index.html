@@ -357,7 +357,7 @@ button:hover{
 <div id="sidebar">
 <div class="sidebar-header">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
-        <h2>Gestor Docs</h2>
+        <h2>DOCUMENTOS</h2>
         <button class="danger" onclick="removeItem()">🗑 Eliminar</button>
     </div>
 
@@ -414,14 +414,37 @@ button:hover{
     <div id="editor" contenteditable="true"></div>
 </div>
 
-<div id="placeholder" class="placeholder">
-    <div style="text-align:center;">
-        <img src="https://www.freepik.es/foto-gratis/plano-estacion-trabajo-espacio-copia-computadora-portatil_6740634.htm#fromView=keyword&page=1&position=34&uuid=ddf1e7d3-1743-4b0a-8095-b95920440a81&query=Fondos+para+paginas+web" 
-             style="opacity:0.2;margin-bottom:20px;">
-        <div>Selecciona un documento para empezar</div>
-    </div>
-</div>
+<div id="placeholder" style="text-align:center; flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
 
+    <div style="
+        margin-bottom:25px;
+        font-size:38px;
+        font-weight:900;
+        letter-spacing:3px;
+        color:#ffffff;
+        text-transform:uppercase;
+        font-family: 'Segoe UI', sans-serif;
+        text-shadow:
+            0 3px 8px rgba(0,0,0,0.7),
+            0 0 15px rgba(0,255,64,0.25);
+    ">
+        ASOVID DEL RUIZ
+    </div>
+
+    <img src="https://i.ibb.co/kg65JjPD/Chat-GPT-Image-19-mar-2026-04-12-02.png" 
+         style="
+            width:900px;
+            max-width:90%;
+            border-radius:12px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.6);
+            transition:0.3s;
+         "
+         onmouseover="this.style.transform='scale(1.05)'"
+         onmouseout="this.style.transform='scale(1)'"
+    >
+
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -976,11 +999,27 @@ function render() {
 }
 
 function toggleCategory(catId) {
-    openCategories[catId] = !openCategories[catId];
-    currentCategory = catId;
+    // Si vuelves a hacer click en la misma categoría
+    if (currentCategory === catId) {
+        openCategories[catId] = !openCategories[catId];
+
+        // 🔥 si se cierra, cerrar documento también
+        if (!openCategories[catId]) {
+            currentDoc = null;
+            closeEditor();
+        }
+    } else {
+        // Cambias de categoría
+        currentCategory = catId;
+        openCategories[catId] = true;
+
+        // 🔥 cerrar documento anterior
+        currentDoc = null;
+        closeEditor();
+    }
+
     render();
 }
-
 function openDoc(catId, docId) {
     currentCategory = catId;
     currentDoc = docId;
@@ -993,11 +1032,11 @@ function openDoc(catId, docId) {
 }
 
 function closeEditor() {
+    currentDoc = null; // 🔥 esto es clave
     document.getElementById("placeholder").style.display = "flex";
     document.getElementById("toolbar").style.display = "none";
     document.getElementById("editor-container").style.display = "none";
 }
-
 async function save() {
     if (!currentDoc || !currentCategory) return;
     const content = document.getElementById("editor").innerHTML;
