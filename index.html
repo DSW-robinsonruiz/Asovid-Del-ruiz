@@ -732,8 +732,8 @@
             border-color: rgba(239, 68, 68, 0.3);
         }
 
-        /* ==================== RESPONSIVE ==================== */
-        @media (max-width: 1024px) {
+        /* ==================== RESPONSIVE - TABLET (1024px - 768px) ==================== */
+        @media (max-width: 1024px) and (min-width: 769px) {
             .bento-grid {
                 grid-template-columns: 1fr;
                 max-width: 500px;
@@ -754,9 +754,49 @@
             }
         }
 
-        @media (max-width: 768px) {
+        /* ==================== RESPONSIVE - TABLET (768px) ==================== */
+        @media (max-width: 768px) and (min-width: 481px) {
+            html, body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
             .home-title {
-                font-size: 42px;
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+
+            .home-subtitle {
+                font-size: 12px;
+            }
+
+            .home-description {
+                font-size: 14px;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 100%;
+                padding: 0 15px;
+            }
+
+            .card {
+                padding: 35px 25px;
+                border-radius: 24px;
+            }
+
+            .card-icon {
+                font-size: 40px;
+            }
+
+            .card-title {
+                font-size: 22px;
+            }
+
+            .card-description {
+                font-size: 13px;
             }
 
             #gestorView,
@@ -764,26 +804,388 @@
                 flex-direction: column;
             }
 
-            .sidebar,
-            #plantilla-form {
+            .sidebar {
                 width: 100%;
+                max-height: 180px;
                 border-right: none;
                 border-bottom: 1px solid var(--border-glass);
-                max-height: 200px;
+                overflow-y: auto;
+            }
+
+            .sidebar-header {
+                padding: 20px;
+            }
+
+            .sidebar-header h2 {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .btn-group {
+                gap: 8px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            .category-header {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+
+            .doc {
+                padding: 8px 15px 8px 35px;
+                font-size: 11px;
+            }
+
+            .toolbar {
+                padding: 12px 15px;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            .toolbar select,
+            .toolbar input[type="color"] {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .toolbar-separator {
+                height: 20px;
             }
 
             #editor {
-                padding: 50px 30px;
-                max-width: 100%;
+                padding: 40px 20px;
+                font-size: 15px;
+                min-height: 600px;
+            }
+
+            #placeholder {
+                padding: 20px;
+            }
+
+            #placeholder img {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            #plantilla-preview {
+                padding: 15px;
+                flex: 1;
+            }
+
+            #plantilla-form {
+                width: 100%;
+                max-height: 200px;
+                border-left: none;
+                border-bottom: 1px solid var(--border-glass);
+                padding: 20px;
+                gap: 12px;
+                overflow-y: auto;
             }
 
             .doc-preview {
                 width: 100%;
-                padding: 30px;
+                max-width: 100%;
+                padding: 30px 20px;
+                min-height: auto;
+                margin: 10px 0;
+            }
+
+            .form-group label {
+                font-size: 10px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .form-submit {
+                padding: 10px 15px;
+                font-size: 11px;
+            }
+
+            #status-indicator {
+                bottom: 15px;
+                right: 15px;
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+        }
+
+        /* ==================== RESPONSIVE - MOBILE (max-width: 480px) ==================== */
+        @media (max-width: 480px) {
+            html, body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #homeView {
+                gap: 40px;
+                padding: 20px;
+            }
+
+            .home-title {
+                font-size: 28px;
+                letter-spacing: 1px;
+            }
+
+            .home-subtitle {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .home-description {
+                font-size: 13px;
+                max-width: 100%;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            .card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            .card-icon {
+                font-size: 36px;
+                margin-bottom: 15px;
+            }
+
+            .card-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .card-description {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            #gestorView,
+            #plantillaView {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: 150px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-glass);
+                overflow-y: auto;
+            }
+
+            .sidebar-header {
+                padding: 15px;
+            }
+
+            .sidebar-header h2 {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .btn-group {
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+
+            button {
+                padding: 6px 10px;
+                font-size: 10px;
+                border-radius: 6px;
+            }
+
+            .category-header {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            .doc {
+                padding: 6px 12px 6px 30px;
+                font-size: 10px;
+            }
+
+            .main-content {
+                flex: 1;
+                overflow: hidden;
+            }
+
+            .toolbar {
+                padding: 10px 12px;
+                gap: 6px;
+                flex-wrap: wrap;
+                overflow-x: auto;
+            }
+
+            .toolbar button {
+                padding: 5px 8px;
+                font-size: 9px;
+            }
+
+            .toolbar select,
+            .toolbar input[type="color"] {
+                padding: 5px 8px;
+                font-size: 10px;
+                height: 30px;
+            }
+
+            .toolbar-separator {
+                height: 18px;
+                margin: 0 3px;
+            }
+
+            #editor-container {
+                padding: 15px 10px;
+            }
+
+            #editor {
+                padding: 25px 15px;
+                font-size: 14px;
+                min-height: 400px;
+                border-radius: 6px;
+            }
+
+            #placeholder {
+                padding: 15px;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 30px;
+            }
+
+            #placeholder > div:first-child {
+                font-size: 24px;
+                margin-bottom: 20px;
+                text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+            }
+
+            #placeholder img {
+                width: 100%;
+                max-width: 280px;
+                border-radius: 8px;
+            }
+
+            #plantillaView {
+                flex-direction: column;
+                gap: 0;
             }
 
             #plantilla-preview {
-                padding: 20px;
+                padding: 10px;
+                flex: 1;
+                overflow-y: auto;
+            }
+
+            #plantilla-form {
+                width: 100%;
+                max-height: 140px;
+                border-left: none;
+                border-bottom: 1px solid var(--border-glass);
+                padding: 15px;
+                gap: 10px;
+                overflow-y: auto;
+            }
+
+            #plantilla-form h3 {
+                font-size: 13px;
+            }
+
+            .doc-preview {
+                width: 100%;
+                max-width: 100%;
+                padding: 20px 15px;
+                min-height: auto;
+                margin: 8px 0;
+                font-size: 12px;
+            }
+
+            .doc-preview h2 {
+                font-size: 13px;
+                margin: 0 0 12px 0;
+            }
+
+            .doc-preview p {
+                margin: 0 0 10px 0;
+                font-size: 11px;
+                line-height: 1.5;
+            }
+
+            .firmas-container {
+                margin-top: 30px;
+                padding-top: 40px;
+            }
+
+            .firma-box {
+                font-size: 10px;
+                line-height: 1.4;
+            }
+
+            .firma-linea {
+                height: 30px;
+                margin-bottom: 5px;
+            }
+
+            .form-group {
+                gap: 4px;
+            }
+
+            .form-group label {
+                font-size: 9px;
+                letter-spacing: 0.5px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 6px 8px;
+                font-size: 11px;
+                border-radius: 5px;
+            }
+
+            .form-submit {
+                padding: 8px 12px;
+                font-size: 10px;
+                margin-top: 8px;
+            }
+
+            #status-indicator {
+                bottom: 10px;
+                right: 10px;
+                padding: 6px 10px;
+                font-size: 10px;
+                border-radius: 5px;
+            }
+        }
+
+        /* ==================== RESPONSIVE - LANDSCAPE MOBILE ==================== */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .sidebar,
+            #plantilla-form {
+                max-height: 120px;
+            }
+
+            .toolbar {
+                padding: 8px 10px;
+                gap: 5px;
+            }
+
+            button {
+                padding: 5px 8px;
+                font-size: 9px;
+            }
+
+            #editor {
+                min-height: 300px;
+                padding: 20px 15px;
             }
         }
     </style>
