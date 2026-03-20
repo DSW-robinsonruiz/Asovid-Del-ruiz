@@ -921,12 +921,179 @@
             }
         }
 
+        /* ==================== MOBILE APP EXPERIENCE - ELITE UI ==================== */
+        .mobile-tab-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid var(--border-glass);
+            z-index: 1001;
+            padding: 8px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+        }
+
+        .tab-btn {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: rgba(148, 163, 184, 0.6);
+            font-size: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .tab-btn:active {
+            transform: scale(0.92);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-primary);
+        }
+
+        .tab-icon {
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active .tab-icon {
+            font-size: 28px);
+            filter: drop-shadow(0 0 8px var(--glow-color));
+        }
+
+        /* BOTTOM SHEET STYLES */
+        .bottom-sheet {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-glass);
+            border-radius: 24px 24px 0 0;
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            z-index: 1000;
+            animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .bottom-sheet.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .bottom-sheet-header {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-glass);
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .bottom-sheet-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .bottom-sheet-content {
+            padding: 20px;
+        }
+
+        .bottom-sheet-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid var(--border-glass);
+            color: var(--accent-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .bottom-sheet-close:active {
+            background: rgba(56, 189, 248, 0.2);
+            transform: scale(0.9);
+        }
+
+        /* FAB - FLOATING ACTION BUTTON */
+        .fab {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 16px;
+            width: 56px;
+            height: 56px;
+            background: var(--accent-primary);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--bg-primary);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .fab:active {
+            transform: scale(0.9);
+            box-shadow: 0 2px 6px rgba(56, 189, 248, 0.3);
+        }
+
         /* ==================== RESPONSIVE - MOBILE (max-width: 480px) - NATIVE APP DESIGN ==================== */
         @media (max-width: 480px) {
             html, body {
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
+            }
+
+            /* SHOW MOBILE TAB BAR */
+            .mobile-tab-bar {
+                display: flex;
+            }
+
+            .fab {
+                display: block;
             }
 
             .container {
@@ -1751,6 +1918,48 @@
         </div>
     </div>
 
+    <!-- MOBILE TAB BAR -->
+    <div class="mobile-tab-bar">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="goHome(); updateTabBar('home')">
+                <span class="tab-icon">🏠</span>
+                <span>Inicio</span>
+            </button>
+            <button class="tab-btn" onclick="showGestor(); updateTabBar('gestor')">
+                <span class="tab-icon">📁</span>
+                <span>Documentos</span>
+            </button>
+            <button class="tab-btn" onclick="showPlantilla(); updateTabBar('plantilla')">
+                <span class="tab-icon">📄</span>
+                <span>Plantilla</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- FLOATING ACTION BUTTON -->
+    <button class="fab" onclick="showNewDocumentSheet()" title="Nuevo Documento">+</button>
+
+    <!-- BOTTOM SHEET FOR NEW DOCUMENT -->
+    <div class="bottom-sheet" id="newDocumentSheet">
+        <div class="bottom-sheet-header">
+            <h3>Nuevo Documento</h3>
+            <button class="bottom-sheet-close" onclick="closeBottomSheet()">×</button>
+        </div>
+        <div class="bottom-sheet-content">
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label style="font-size: 12px; font-weight: 600; display: block; margin-bottom: 8px;">Categoría:</label>
+                <select id="categorySelect" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass); background: rgba(30, 41, 59, 0.5); color: var(--text-primary); font-size: 14px;">
+                    <option value="">-- Seleccionar --</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 16px;">
+                <label style="font-size: 12px; font-weight: 600; display: block; margin-bottom: 8px;">Nombre:</label>
+                <input type="text" id="newDocName" placeholder="Ej: Mi Documento" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-glass); background: rgba(30, 41, 59, 0.5); color: var(--text-primary); font-size: 14px;">
+            </div>
+            <button class="form-submit" onclick="createDocumentFromSheet()" style="width: 100%; background: var(--accent-primary); color: var(--bg-primary);">Crear</button>
+        </div>
+    </div>
+
     <!-- FIREBASE SDK v8 -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -2302,6 +2511,55 @@
         let currentCategory = null;
         let currentDoc = null;
         let openCategories = {};
+
+        /* ================= MOBILE UI FUNCTIONS ================= */
+
+        function updateTabBar(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const buttons = document.querySelectorAll('.tab-btn');
+            if (tab === 'home') buttons[0].classList.add('active');
+            else if (tab === 'gestor') buttons[1].classList.add('active');
+            else if (tab === 'plantilla') buttons[2].classList.add('active');
+        }
+
+        function showHome() {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById('homeView').classList.add('active');
+            updateTabBar('home');
+        }
+
+        function showNewDocumentSheet() {
+            const sheet = document.getElementById('newDocumentSheet');
+            if (sheet) {
+                sheet.classList.add('show');
+                const select = document.getElementById('categorySelect');
+                select.innerHTML = '<option value="">-- Seleccionar --</option>';
+                for (const catId in data) {
+                    const option = document.createElement('option');
+                    option.value = catId;
+                    option.textContent = catId;
+                    select.appendChild(option);
+                }
+            }
+        }
+
+        function closeBottomSheet() {
+            const sheet = document.getElementById('newDocumentSheet');
+            if (sheet) sheet.classList.remove('show');
+        }
+
+        function createDocumentFromSheet() {
+            const category = document.getElementById('categorySelect').value;
+            const docName = document.getElementById('newDocName').value;
+            if (!category || !docName) {
+                alert('Completa todos los campos');
+                return;
+            }
+            currentCategory = category;
+            createDocument();
+            closeBottomSheet();
+            document.getElementById('newDocName').value = '';
+        }
     </script>
 </body>
 </html>
